@@ -5,4 +5,7 @@
     <Project Path="src/Asms.Domain/Asms.Domain.csproj" />
     <Project Path="src/Asms.Infrastructure/Asms.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Asms.Domain.Tests/Asms.Domain.Tests.csproj" />
+  </Folder>
 </Solution>
