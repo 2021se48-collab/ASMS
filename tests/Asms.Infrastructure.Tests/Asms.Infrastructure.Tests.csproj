@@ -22,6 +22,8 @@
     <ProjectReference Include="..\..\src\Asms.Infrastructure\Asms.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\Asms.Application\Asms.Application.csproj" />
     <ProjectReference Include="..\..\src\Asms.Domain\Asms.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Asms.Infrastructure.Migrations.Sqlite\Asms.Infrastructure.Migrations.Sqlite.csproj" />
+    <ProjectReference Include="..\..\src\Asms.Infrastructure.Migrations.PostgreSql\Asms.Infrastructure.Migrations.PostgreSql.csproj" />
   </ItemGroup>
 
 </Project>

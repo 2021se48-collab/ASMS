@@ -3,6 +3,8 @@
     <Project Path="src/Asms.Application/Asms.Application.csproj" />
     <Project Path="src/Asms.Contracts/Asms.Contracts.csproj" />
     <Project Path="src/Asms.Domain/Asms.Domain.csproj" />
+    <Project Path="src/Asms.Infrastructure.Migrations.PostgreSql/Asms.Infrastructure.Migrations.PostgreSql.csproj" />
+    <Project Path="src/Asms.Infrastructure.Migrations.Sqlite/Asms.Infrastructure.Migrations.Sqlite.csproj" />
     <Project Path="src/Asms.Infrastructure/Asms.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
