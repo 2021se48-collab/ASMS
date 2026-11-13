@@ -195,6 +195,14 @@ public class AsmsDbContextTests
             .Options;
         var context = new AsmsDbContext(options, tenant);
         context.Database.EnsureCreated();
+
+        if (tenant.SchoolId is Guid schoolId &&
+            !context.Schools.IgnoreQueryFilters().Any(school => school.Id == schoolId))
+        {
+            context.Schools.Add(new School { Id = schoolId, Name = "Test school" });
+            context.SaveChanges();
+        }
+
         return context;
     }
 }
