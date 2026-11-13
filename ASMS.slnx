@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Asms.Application/Asms.Application.csproj" />
+    <Project Path="src/Asms.Contracts/Asms.Contracts.csproj" />
+    <Project Path="src/Asms.Domain/Asms.Domain.csproj" />
+    <Project Path="src/Asms.Infrastructure/Asms.Infrastructure.csproj" />
+  </Folder>
+</Solution>
