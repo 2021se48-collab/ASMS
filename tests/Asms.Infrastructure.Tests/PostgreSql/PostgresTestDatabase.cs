@@ -1,4 +1,5 @@
 using Asms.Infrastructure.Persistence;
+using Asms.Infrastructure.Identity;
 using Asms.Infrastructure.Tests.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
@@ -16,7 +17,8 @@ public sealed class PostgresTestDatabase : IAsyncDisposable
         DatabaseName = databaseName;
         var connectionStringBuilder = new NpgsqlConnectionStringBuilder(adminConnectionString)
         {
-            Database = databaseName
+            Database = databaseName,
+            Pooling = false
         };
         _databaseConnectionString = connectionStringBuilder.ConnectionString;
     }
@@ -51,6 +53,13 @@ public sealed class PostgresTestDatabase : IAsyncDisposable
                 npgsql => npgsql.MigrationsAssembly("Asms.Infrastructure.Migrations.PostgreSql"))
             .Options;
         return new AsmsDbContext(options, tenant);
+    }
+
+    public void ConfigureIdentityDbContext(DbContextOptionsBuilder options)
+    {
+        options.UseNpgsql(
+            _databaseConnectionString,
+            npgsql => npgsql.MigrationsAssembly("Asms.Infrastructure.Migrations.PostgreSql"));
     }
 
     public async ValueTask DisposeAsync()
