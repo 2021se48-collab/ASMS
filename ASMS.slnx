@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Asms.Api/Asms.Api.csproj" />
     <Project Path="src/Asms.Application/Asms.Application.csproj" />
     <Project Path="src/Asms.Contracts/Asms.Contracts.csproj" />
     <Project Path="src/Asms.Domain/Asms.Domain.csproj" />
@@ -8,6 +9,7 @@
     <Project Path="src/Asms.Infrastructure/Asms.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Asms.Api.Tests/Asms.Api.Tests.csproj" />
     <Project Path="tests/Asms.Domain.Tests/Asms.Domain.Tests.csproj" />
     <Project Path="tests/Asms.Infrastructure.Tests/Asms.Infrastructure.Tests.csproj" />
   </Folder>
