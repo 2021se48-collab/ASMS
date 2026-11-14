@@ -1,10 +1,14 @@
 using System.Text;
+using Asms.Api.Authorization;
 using Asms.Api.Tenancy;
 using Asms.Api.Configuration;
 using Asms.Application.Abstractions;
+using Asms.Application.Security;
 using Asms.Infrastructure.Identity;
 using Asms.Infrastructure.Persistence;
 using Asms.Infrastructure.Security;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +39,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentTenant, HttpContextCurrentTenant>();
 builder.Services.AddDbContext<AsmsDbContext>(configureDb);
 builder.Services.AddAsmsIdentity(configureDb);
+builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();
 builder.Services.AddAsmsAuthentication(builder.Configuration);
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -58,6 +63,11 @@ builder.Services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationSc
         };
     });
 builder.Services.AddAuthorization();
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+builder.Services.AddSingleton<
+    IAuthorizationMiddlewareResultHandler,
+    PermissionAuthorizationMiddlewareResultHandler>();
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;

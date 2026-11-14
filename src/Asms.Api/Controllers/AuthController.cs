@@ -2,6 +2,7 @@ using Asms.Application.Abstractions;
 using Asms.Application.Auth;
 using Asms.Application.Security;
 using Asms.Contracts.Auth;
+using Asms.Domain.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
@@ -14,11 +15,16 @@ public sealed class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
     private readonly ICurrentTenant _tenant;
+    private readonly IUserPermissionService _userPermissionService;
 
-    public AuthController(IAuthService authService, ICurrentTenant tenant)
+    public AuthController(
+        IAuthService authService,
+        ICurrentTenant tenant,
+        IUserPermissionService userPermissionService)
     {
         _authService = authService;
         _tenant = tenant;
+        _userPermissionService = userPermissionService;
     }
 
     [HttpPost("login")]
@@ -84,6 +90,27 @@ public sealed class AuthController : ControllerBase
             userId,
             schoolId = _tenant.SchoolId,
             roles
+        });
+    }
+
+    [HttpGet("permissions")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> Permissions(CancellationToken ct)
+    {
+        Response.Headers.CacheControl = "no-store";
+        var access = await _userPermissionService.GetAccessAsync(ct);
+        if (!access.IsValid)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, new ErrorResponse("FORBIDDEN"));
+        }
+
+        return Ok(new
+        {
+            roles = access.Roles.OrderBy(role => role, StringComparer.Ordinal).ToArray(),
+            permissions = access.Permissions.OrderBy(permission => permission, StringComparer.Ordinal).ToArray()
         });
     }
 }
