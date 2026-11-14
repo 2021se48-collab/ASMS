@@ -132,8 +132,9 @@ public class IdentityStoreTests
         var context = scope.ServiceProvider.GetRequiredService<AsmsIdentityDbContext>();
 
         var applied = context.Database.GetAppliedMigrations().ToArray();
-        Assert.Single(applied);
+        Assert.Equal(2, applied.Length);
         Assert.EndsWith("IdentityInitial", applied[0], StringComparison.Ordinal);
+        Assert.EndsWith("AddRefreshTokens", applied[1], StringComparison.Ordinal);
         Assert.False(context.Database.HasPendingModelChanges());
 
         var tables = await GetTablesAsync(context);
@@ -141,6 +142,7 @@ public class IdentityStoreTests
         Assert.Contains("Identity_UserClaims", tables);
         Assert.Contains("Identity_UserLogins", tables);
         Assert.Contains("Identity_UserTokens", tables);
+        Assert.Contains("Identity_RefreshTokens", tables);
     }
 
     [Fact]
@@ -167,6 +169,7 @@ public class IdentityStoreTests
         Assert.Contains("Identity_UserClaims", tables);
         Assert.Contains("Identity_UserLogins", tables);
         Assert.Contains("Identity_UserTokens", tables);
+        Assert.Contains("Identity_RefreshTokens", tables);
     }
 
     private static async Task<HashSet<string>> GetTablesAsync(AsmsIdentityDbContext context)

@@ -19,8 +19,9 @@ public class PostgreSqlIdentityTests
         await context.Database.MigrateAsync();
 
         var applied = context.Database.GetAppliedMigrations().ToArray();
-        Assert.Single(applied);
+        Assert.Equal(2, applied.Length);
         Assert.EndsWith("IdentityInitial", applied[0], StringComparison.Ordinal);
+        Assert.EndsWith("AddRefreshTokens", applied[1], StringComparison.Ordinal);
         Assert.False(context.Database.HasPendingModelChanges());
 
         var tables = await context.Database
@@ -31,6 +32,7 @@ public class PostgreSqlIdentityTests
         Assert.Contains("Identity_UserClaims", tables);
         Assert.Contains("Identity_UserLogins", tables);
         Assert.Contains("Identity_UserTokens", tables);
+        Assert.Contains("Identity_RefreshTokens", tables);
     }
 
     [PostgresFact]
@@ -99,6 +101,7 @@ public class PostgreSqlIdentityTests
         Assert.Contains("Identity_UserClaims", tables);
         Assert.Contains("Identity_UserLogins", tables);
         Assert.Contains("Identity_UserTokens", tables);
+        Assert.Contains("Identity_RefreshTokens", tables);
     }
 
     private static AsmsIdentityDbContext CreateIdentityContext(PostgresTestDatabase database)

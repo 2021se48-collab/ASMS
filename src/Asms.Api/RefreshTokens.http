@@ -1,0 +1,23 @@
+@baseUrl = https://localhost:7077
+@refreshToken = {{$processEnv ASMS_REFRESH_TOKEN}}
+@accessToken = {{$processEnv ASMS_ACCESS_TOKEN}}
+
+### Rotate a refresh token
+POST {{baseUrl}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### Revoke a refresh-token family
+POST {{baseUrl}}/api/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### Revoke all refresh-token families for the caller
+POST {{baseUrl}}/api/auth/logout-all
+Authorization: Bearer {{accessToken}}

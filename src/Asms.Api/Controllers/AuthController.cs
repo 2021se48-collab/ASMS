@@ -56,7 +56,9 @@ public sealed class AuthController : ControllerBase
         if (result.AccessToken is null ||
             result.ExpiresAtUtc is not DateTime expiresAtUtc ||
             result.UserId is not Guid userId ||
-            result.SchoolId is not Guid schoolId)
+            result.SchoolId is not Guid schoolId ||
+            result.RefreshToken is null ||
+            result.RefreshTokenExpiresAtUtc is not DateTime refreshTokenExpiresAtUtc)
         {
             throw new InvalidOperationException("The authentication service returned an invalid success result.");
         }
@@ -66,7 +68,86 @@ public sealed class AuthController : ControllerBase
             expiresAtUtc,
             userId,
             schoolId,
-            result.Roles));
+            result.Roles,
+            result.RefreshToken,
+            refreshTokenExpiresAtUtc));
+    }
+
+    [HttpPost("refresh")]
+    [AllowAnonymous]
+    [EnableRateLimiting("refresh")]
+    [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Refresh(
+        [FromBody] RefreshRequest? request,
+        CancellationToken ct)
+    {
+        Response.Headers.CacheControl = "no-store";
+        if (request is null ||
+            string.IsNullOrWhiteSpace(request.RefreshToken) ||
+            request.RefreshToken.Length > 200)
+        {
+            return BadRequest(new ErrorResponse("INVALID_REQUEST"));
+        }
+
+        var result = await _authService.RefreshAsync(request.RefreshToken, ct);
+        if (!result.Succeeded)
+        {
+            return Unauthorized(new ErrorResponse("INVALID_REFRESH_TOKEN"));
+        }
+
+        if (result.AccessToken is null ||
+            result.ExpiresAtUtc is not DateTime expiresAtUtc ||
+            result.UserId is not Guid userId ||
+            result.SchoolId is not Guid schoolId ||
+            result.RefreshToken is null ||
+            result.RefreshTokenExpiresAtUtc is not DateTime refreshTokenExpiresAtUtc)
+        {
+            throw new InvalidOperationException("The authentication service returned an invalid success result.");
+        }
+
+        return Ok(new LoginResponse(
+            result.AccessToken,
+            expiresAtUtc,
+            userId,
+            schoolId,
+            result.Roles,
+            result.RefreshToken,
+            refreshTokenExpiresAtUtc));
+    }
+
+    [HttpPost("logout")]
+    [AllowAnonymous]
+    [EnableRateLimiting("refresh")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Logout(
+        [FromBody] LogoutRequest? request,
+        CancellationToken ct)
+    {
+        Response.Headers.CacheControl = "no-store";
+        if (request is not null &&
+            !string.IsNullOrWhiteSpace(request.RefreshToken) &&
+            request.RefreshToken.Length <= 200)
+        {
+            await _authService.LogoutAsync(request.RefreshToken, ct);
+        }
+
+        return NoContent();
+    }
+
+    [HttpPost("logout-all")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> LogoutAll(CancellationToken ct)
+    {
+        Response.Headers.CacheControl = "no-store";
+        if (_tenant.UserId is Guid userId)
+        {
+            await _authService.RevokeAllForUserAsync(userId, "LOGOUT_ALL", ct);
+        }
+
+        return NoContent();
     }
 
     [HttpGet("me")]
