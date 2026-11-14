@@ -1,19 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>abe4d887-22c8-425b-861b-189ec805cbf0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.15" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Asms.Application\Asms.Application.csproj" />
     <ProjectReference Include="..\Asms.Infrastructure\Asms.Infrastructure.csproj" />
     <ProjectReference Include="..\Asms.Contracts\Asms.Contracts.csproj" />
+    <ProjectReference Include="..\Asms.Infrastructure.Migrations.Sqlite\Asms.Infrastructure.Migrations.Sqlite.csproj" />
+    <ProjectReference Include="..\Asms.Infrastructure.Migrations.PostgreSql\Asms.Infrastructure.Migrations.PostgreSql.csproj" />
   </ItemGroup>
 
 </Project>
