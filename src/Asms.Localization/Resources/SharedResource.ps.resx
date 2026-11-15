@@ -6,6 +6,10 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
   <!-- DRAFT - needs review by a native speaker -->
   <data name="App.Name" xml:space="preserve"><value>د افغانستان د ښوونځیو د مدیریت سیستم</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>د سیسټم بڼه</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>روښانه</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>تیاره</value></data>
+  <data name="Theme.Toggle" xml:space="preserve"><value>بڼه بدله کړئ</value></data>
   <data name="Common.Save" xml:space="preserve"><value>خوندي کول</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>لغوه کول</value></data>
   <data name="Common.Delete" xml:space="preserve"><value>ړنګول</value></data>

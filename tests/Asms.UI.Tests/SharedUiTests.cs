@@ -7,6 +7,7 @@ using Asms.Localization.Services;
 using Asms.UI.Shared.Extensions;
 using Asms.UI.Shared.Layout;
 using Asms.UI.Shared.Pages;
+using Asms.UI.Shared.Services;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
@@ -83,6 +84,89 @@ public sealed class SharedUiTests
         cut.Dispose();
 
         var exception = Record.Exception(() => localizer.SetLanguage("ps"));
+        Assert.Null(exception);
+    }
+
+    [Theory]
+    [InlineData(ThemeMode.System, null)]
+    [InlineData(ThemeMode.Light, "light")]
+    [InlineData(ThemeMode.Dark, "dark")]
+    public void Main_layout_renders_the_selected_theme(
+        ThemeMode mode,
+        string? expectedDataTheme)
+    {
+        using var context = CreateContext();
+        var theme = context.Services.GetRequiredService<IThemeService>();
+        theme.SetMode(mode);
+
+        var cut = context.Render<MainLayout>();
+
+        Assert.Equal(expectedDataTheme, cut.Find(".app-shell").GetAttribute("data-theme"));
+    }
+
+    [Fact]
+    public void Theme_button_cycles_system_light_dark_and_back_to_system()
+    {
+        using var context = CreateContext();
+        var cut = context.Render<MainLayout>();
+        var button = cut.Find("button[aria-label='Change theme']");
+
+        Assert.Equal("System", button.TextContent.Trim());
+
+        button.Click();
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Equal("light", cut.Find(".app-shell").GetAttribute("data-theme"));
+            Assert.Equal("Light", cut.Find("button").TextContent.Trim());
+        });
+
+        cut.Find("button").Click();
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Equal("dark", cut.Find(".app-shell").GetAttribute("data-theme"));
+            Assert.Equal("Dark", cut.Find("button").TextContent.Trim());
+        });
+
+        cut.Find("button").Click();
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Null(cut.Find(".app-shell").GetAttribute("data-theme"));
+            Assert.Equal("System", cut.Find("button").TextContent.Trim());
+        });
+    }
+
+    [Theory]
+    [InlineData("en")]
+    [InlineData("ps")]
+    [InlineData("fa-AF")]
+    public void Theme_button_text_and_accessible_name_follow_the_selected_language(
+        string languageCode)
+    {
+        using var context = CreateContext();
+        var localizer = context.Services.GetRequiredService<ILocalizer>();
+        localizer.SetLanguage(languageCode);
+        var culture = CultureInfo.GetCultureInfo(languageCode);
+        var resources = new ResourceManager(
+            "Asms.Localization.Resources.SharedResource",
+            typeof(SharedResource).Assembly);
+
+        var cut = context.Render<MainLayout>();
+        var button = cut.Find("button");
+
+        Assert.Equal(resources.GetString("Theme.Toggle", culture), button.GetAttribute("aria-label"));
+        Assert.Equal(resources.GetString("Theme.System", culture), button.TextContent.Trim());
+    }
+
+    [Fact]
+    public void Main_layout_unsubscribes_from_theme_changes_when_disposed()
+    {
+        using var context = CreateContext();
+        var theme = context.Services.GetRequiredService<IThemeService>();
+        var cut = context.Render<MainLayout>();
+
+        cut.Dispose();
+
+        var exception = Record.Exception(() => theme.SetMode(ThemeMode.Dark));
         Assert.Null(exception);
     }
 

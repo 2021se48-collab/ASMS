@@ -6,6 +6,10 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
   <!-- DRAFT - needs review by a native speaker -->
   <data name="App.Name" xml:space="preserve"><value>سیستم مدیریت مکاتب افغانستان</value></data>
+  <data name="Theme.System" xml:space="preserve"><value>تم سیستم</value></data>
+  <data name="Theme.Light" xml:space="preserve"><value>روشن</value></data>
+  <data name="Theme.Dark" xml:space="preserve"><value>تیره</value></data>
+  <data name="Theme.Toggle" xml:space="preserve"><value>تغییر تم</value></data>
   <data name="Common.Save" xml:space="preserve"><value>ذخیره</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>لغو</value></data>
   <data name="Common.Delete" xml:space="preserve"><value>حذف</value></data>

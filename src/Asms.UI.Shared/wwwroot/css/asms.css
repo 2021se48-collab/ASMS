@@ -1,3 +1,19 @@
+@font-face {
+    font-family: "Noto Sans";
+    src: url("../fonts/NotoSans[wdth,wght].ttf") format("truetype");
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Naskh Arabic";
+    src: url("../fonts/NotoNaskhArabic[wght].ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+}
+
 :root {
     color-scheme: light dark;
     --asms-background: #f7f8fa;
@@ -6,7 +22,7 @@
     --asms-border: #8a96a3;
     --asms-accent: #145da0;
     --asms-focus: #d97706;
-    font-family: "Segoe UI", "Noto Naskh Arabic", Tahoma, sans-serif;
+    font-family: "Noto Sans", "Segoe UI", Tahoma, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,6 +34,32 @@
         --asms-accent: #8dc5ff;
         --asms-focus: #ffcb73;
     }
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+    --asms-background: #f7f8fa;
+    --asms-surface: #ffffff;
+    --asms-text: #17212b;
+    --asms-border: #8a96a3;
+    --asms-accent: #145da0;
+    --asms-focus: #d97706;
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+    --asms-background: #15191e;
+    --asms-surface: #20262d;
+    --asms-text: #f1f4f7;
+    --asms-border: #788491;
+    --asms-accent: #8dc5ff;
+    --asms-focus: #ffcb73;
+}
+
+:lang(ps),
+:lang(fa),
+[lang="fa-AF"] {
+    font-family: "Noto Naskh Arabic", "Noto Sans", "Segoe UI", Tahoma, sans-serif;
 }
 
 * {
@@ -45,6 +87,23 @@ body {
     border-block-end: 1px solid var(--asms-border);
     font-size: 1.25rem;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.theme-button {
+    min-height: 3rem;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    border: 2px solid var(--asms-accent);
+    border-radius: 0.5rem;
+    background: var(--asms-surface);
+    color: var(--asms-text);
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .content,

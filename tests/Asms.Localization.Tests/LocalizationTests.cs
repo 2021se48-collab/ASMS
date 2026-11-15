@@ -12,6 +12,7 @@ public sealed class LocalizationTests
     private static readonly string[] ExpectedKeys =
     [
         "App.Name",
+        "Theme.System", "Theme.Light", "Theme.Dark", "Theme.Toggle",
         "Common.Save", "Common.Cancel", "Common.Delete", "Common.Edit", "Common.Search",
         "Common.Add", "Common.Close", "Common.Yes", "Common.No", "Common.Confirm",
         "Common.Loading", "Common.Back", "Common.Next", "Common.Print", "Common.Export",

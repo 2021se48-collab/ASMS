@@ -1,9 +1,19 @@
 @inherits LayoutComponentBase
 @implements IDisposable
+@using Asms.UI.Shared.Services
 
-<div class="app-shell" dir="@Localizer.Direction" lang="@Localizer.CurrentLanguage.Code">
+<div class="app-shell"
+     dir="@Localizer.Direction"
+     lang="@Localizer.CurrentLanguage.Code"
+     data-theme="@ThemeService.DataTheme">
     <header class="top-bar">
         <span>@Localizer["App.Name"]</span>
+        <button type="button"
+                class="theme-button"
+                aria-label="@ThemeToggleLabel"
+                @onclick="CycleTheme">
+            @CurrentThemeLabel
+        </button>
     </header>
     <main class="content">
         @Body
@@ -14,9 +24,17 @@
     [Inject]
     private ILocalizer Localizer { get; set; } = default!;
 
+    [Inject]
+    private IThemeService ThemeService { get; set; } = default!;
+
+    private string ThemeToggleLabel => Localizer["Theme.Toggle"];
+
+    private string CurrentThemeLabel => Localizer[$"Theme.{ThemeService.Mode}"];
+
     protected override void OnInitialized()
     {
         Localizer.LanguageChanged += OnLanguageChanged;
+        ThemeService.ThemeChanged += OnThemeChanged;
     }
 
     private void OnLanguageChanged()
@@ -24,8 +42,24 @@
         _ = InvokeAsync(StateHasChanged);
     }
 
+    private void OnThemeChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    private void CycleTheme()
+    {
+        ThemeService.SetMode(ThemeService.Mode switch
+        {
+            ThemeMode.System => ThemeMode.Light,
+            ThemeMode.Light => ThemeMode.Dark,
+            _ => ThemeMode.System
+        });
+    }
+
     public void Dispose()
     {
         Localizer.LanguageChanged -= OnLanguageChanged;
+        ThemeService.ThemeChanged -= OnThemeChanged;
     }
 }
