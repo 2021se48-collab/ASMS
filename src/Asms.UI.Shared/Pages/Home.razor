@@ -1,33 +1,25 @@
 @page "/home"
+@layout Asms.UI.Shared.Layout.AppShell
 
-<section class="page-content" aria-labelledby="dashboard-heading">
-    <h1 id="dashboard-heading">@Localizer["Nav.Dashboard"]</h1>
-    <ul class="navigation-list">
-        @foreach (var key in NavigationKeys)
-        {
-            <li>@Localizer[key]</li>
-        }
-    </ul>
-    <button type="button" class="action-button"
-            aria-label="@Localizer["Common.Back"]"
-            @onclick="ReturnToLanguageChooser">
-        @Localizer["Common.Back"]
-    </button>
+<section class="page-content dashboard-page" aria-labelledby="dashboard-heading">
+    <h1 id="dashboard-heading">@Localizer["Home.Greeting"]</h1>
+    <h2>@Localizer["Nav.Dashboard"]</h2>
+    @if (Session.Roles.Count > 0)
+    {
+        <ul class="role-list" aria-label="@Localizer["Auth.Roles"]">
+            @foreach (var role in Session.Roles)
+            {
+                <li>@Localizer[$"Role.{role}"]</li>
+            }
+        </ul>
+    }
+    <p>@Localizer["Home.ComingSoon"]</p>
 </section>
 
 @code {
-    private static readonly string[] NavigationKeys =
-    [
-        "Nav.Dashboard", "Nav.Students", "Nav.Teachers", "Nav.Attendance",
-        "Nav.Exams", "Nav.Fees", "Nav.Reports", "Nav.Library",
-        "Nav.Inventory", "Nav.Settings"
-    ];
-
     [Inject]
     private ILocalizer Localizer { get; set; } = default!;
 
     [Inject]
-    private NavigationManager Navigation { get; set; } = default!;
-
-    private void ReturnToLanguageChooser() => Navigation.NavigateTo("/");
+    private IAuthSession Session { get; set; } = default!;
 }

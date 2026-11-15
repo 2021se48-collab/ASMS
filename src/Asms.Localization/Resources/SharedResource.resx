@@ -9,6 +9,7 @@
   <data name="Theme.Light" xml:space="preserve"><value>Light</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Dark</value></data>
   <data name="Theme.Toggle" xml:space="preserve"><value>Change theme</value></data>
+  <data name="Common.SkipToContent" xml:space="preserve"><value>Skip to content</value></data>
   <data name="Common.Save" xml:space="preserve"><value>Save</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>Cancel</value></data>
   <data name="Common.Delete" xml:space="preserve"><value>Delete</value></data>
@@ -34,8 +35,16 @@
   <data name="Nav.Library" xml:space="preserve"><value>Library</value></data>
   <data name="Nav.Inventory" xml:space="preserve"><value>Inventory</value></data>
   <data name="Nav.Settings" xml:space="preserve"><value>Settings</value></data>
+  <data name="Nav.Home" xml:space="preserve"><value>Home</value></data>
+  <data name="Nav.Navigation" xml:space="preserve"><value>Main navigation</value></data>
   <data name="Auth.Login" xml:space="preserve"><value>Log in</value></data>
   <data name="Auth.Logout" xml:space="preserve"><value>Log out</value></data>
+  <data name="Auth.SignIn" xml:space="preserve"><value>Sign in</value></data>
+  <data name="Auth.SigningIn" xml:space="preserve"><value>Signing in...</value></data>
+  <data name="Auth.SignOut" xml:space="preserve"><value>Sign out</value></data>
+  <data name="Auth.SignedIn" xml:space="preserve"><value>Signed in</value></data>
+  <data name="Auth.OfflineNotice" xml:space="preserve"><value>An internet connection is needed to sign in.</value></data>
+  <data name="Auth.Roles" xml:space="preserve"><value>Your roles</value></data>
   <data name="Auth.UserName" xml:space="preserve"><value>Username</value></data>
   <data name="Auth.Password" xml:space="preserve"><value>Password</value></data>
   <data name="Auth.ChooseLanguage" xml:space="preserve"><value>Choose language</value></data>
@@ -48,7 +57,22 @@
   <data name="Error.UNAUTHENTICATED" xml:space="preserve"><value>Please log in to continue.</value></data>
   <data name="Error.FORBIDDEN" xml:space="preserve"><value>You do not have permission to do this.</value></data>
   <data name="Error.APPEND_ONLY_TABLE" xml:space="preserve"><value>This record cannot be changed.</value></data>
+  <data name="Error.NETWORK_ERROR" xml:space="preserve"><value>Network problem. Check your connection and try again.</value></data>
+  <data name="Error.RATE_LIMITED" xml:space="preserve"><value>Too many attempts. Wait a little and try again.</value></data>
   <data name="Error.Unexpected" xml:space="preserve"><value>Something went wrong. Please try again.</value></data>
   <data name="Validation.Required" xml:space="preserve"><value>{0} is required.</value></data>
   <data name="Validation.MaxLength" xml:space="preserve"><value>{0} must be at most {1} characters.</value></data>
+  <data name="Home.Greeting" xml:space="preserve"><value>Welcome</value></data>
+  <data name="Home.ComingSoon" xml:space="preserve"><value>This area is coming soon.</value></data>
+  <data name="Role.PlatformSuperAdministrator" xml:space="preserve"><value>Platform super administrator</value></data>
+  <data name="Role.SchoolOwner" xml:space="preserve"><value>School owner</value></data>
+  <data name="Role.SchoolPrincipal" xml:space="preserve"><value>School principal</value></data>
+  <data name="Role.AcademicManager" xml:space="preserve"><value>Academic manager</value></data>
+  <data name="Role.Accountant" xml:space="preserve"><value>Accountant</value></data>
+  <data name="Role.Teacher" xml:space="preserve"><value>Teacher</value></data>
+  <data name="Role.Receptionist" xml:space="preserve"><value>Receptionist</value></data>
+  <data name="Role.Librarian" xml:space="preserve"><value>Librarian</value></data>
+  <data name="Role.Parent" xml:space="preserve"><value>Parent</value></data>
+  <data name="Role.Student" xml:space="preserve"><value>Student</value></data>
+  <data name="Role.EducationSupervisor" xml:space="preserve"><value>Education supervisor</value></data>
 </root>

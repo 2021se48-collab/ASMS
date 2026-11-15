@@ -1,0 +1,45 @@
+<div class="language-switcher"
+     role="group"
+     aria-label="@Localizer["Auth.ChooseLanguage"]">
+    <button type="button"
+            class="language-button"
+            aria-label="@Localizer["Lang.English"]"
+            aria-pressed="@IsEnglishSelected"
+            @onclick="ChooseEnglish">
+        @Localizer["Lang.English"]
+    </button>
+    <button type="button"
+            class="language-button"
+            aria-label="@Localizer["Lang.Pashto"]"
+            aria-pressed="@IsPashtoSelected"
+            @onclick="ChoosePashto">
+        @Localizer["Lang.Pashto"]
+    </button>
+    <button type="button"
+            class="language-button"
+            aria-label="@Localizer["Lang.Dari"]"
+            aria-pressed="@IsDariSelected"
+            @onclick="ChooseDari">
+        @Localizer["Lang.Dari"]
+    </button>
+</div>
+
+@code {
+    [Inject]
+    private ILocalizer Localizer { get; set; } = default!;
+
+    private string IsEnglishSelected => IsSelected("en");
+
+    private string IsPashtoSelected => IsSelected("ps");
+
+    private string IsDariSelected => IsSelected("fa-AF");
+
+    private string IsSelected(string code) =>
+        string.Equals(Localizer.CurrentLanguage.Code, code, StringComparison.Ordinal) ? "true" : "false";
+
+    private void ChooseEnglish() => Localizer.SetLanguage("en");
+
+    private void ChoosePashto() => Localizer.SetLanguage("ps");
+
+    private void ChooseDari() => Localizer.SetLanguage("fa-AF");
+}

@@ -1,0 +1,141 @@
+@inherits LayoutComponentBase
+@implements IDisposable
+@using Asms.UI.Shared.Services
+
+<RedirectToLoginIfSignedOut />
+@if (Session.IsSignedIn)
+{
+    <div class="app-shell"
+         dir="@Localizer.Direction"
+         lang="@Localizer.CurrentLanguage.Code"
+         data-theme="@ThemeService.DataTheme">
+        <a class="skip-link" href="#app-main">@Localizer["Common.SkipToContent"]</a>
+        <header class="top-bar">
+            <span>@Localizer["App.Name"]</span>
+            <div class="top-bar-actions">
+                <LanguageSwitcher />
+                <button type="button"
+                        class="theme-button"
+                        aria-label="@ThemeToggleLabel"
+                        @onclick="CycleTheme">
+                    @CurrentThemeLabel
+                </button>
+                <span class="signed-in-indicator">@Localizer["Auth.SignedIn"]</span>
+                <button type="button"
+                        class="action-button sign-out-button"
+                        aria-label="@Localizer["Auth.SignOut"]"
+                        @onclick="SignOutAsync">
+                    @Localizer["Auth.SignOut"]
+                </button>
+            </div>
+        </header>
+        <div class="app-shell-content">
+            <nav class="sidebar" aria-label="@Localizer["Nav.Navigation"]">
+                <ul class="sidebar-list">
+                    @foreach (var item in MenuItems)
+                    {
+                        @if (CanShowMenuItem(item))
+                        {
+                            <li>
+                                @if (item.Key == "Nav.Dashboard")
+                                {
+                                    <a class="sidebar-item" href="/home">@Localizer[item.Key]</a>
+                                }
+                                else
+                                {
+                                    <span class="sidebar-item">@Localizer[item.Key]</span>
+                                }
+                            </li>
+                        }
+                    }
+                </ul>
+            </nav>
+            <main id="app-main" class="app-main" role="main">
+                @Body
+            </main>
+        </div>
+    </div>
+}
+
+@code {
+    private static readonly (string Key, string? Permission)[] MenuItems =
+    [
+        ("Nav.Dashboard", null),
+        ("Nav.Students", "Students.View"),
+        ("Nav.Teachers", "Teachers.View"),
+        ("Nav.Attendance", "Attendance.View"),
+        ("Nav.Exams", "Exams.View"),
+        ("Nav.Fees", "Fees.View"),
+        ("Nav.Reports", "Reports.View"),
+        ("Nav.Library", "Library.View"),
+        ("Nav.Inventory", "Inventory.View"),
+        ("Nav.Settings", "Settings.View")
+    ];
+
+    [Inject]
+    private IAuthSession Session { get; set; } = default!;
+
+    [Inject]
+    private ILocalizer Localizer { get; set; } = default!;
+
+    [Inject]
+    private IThemeService ThemeService { get; set; } = default!;
+
+    [Inject]
+    private IAsmsApiClient ApiClient { get; set; } = default!;
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+    private string ThemeToggleLabel => Localizer["Theme.Toggle"];
+
+    private string CurrentThemeLabel => Localizer[$"Theme.{ThemeService.Mode}"];
+
+    private bool CanShowMenuItem((string Key, string? Permission) item)
+    {
+        if (item.Permission is null)
+        {
+            return true;
+        }
+
+        var staffRole = Session.Roles.Any(role =>
+            role is not "Parent" and not "Student");
+        return staffRole && Session.Has(item.Permission);
+    }
+
+    protected override void OnInitialized()
+    {
+        Session.Changed += OnStateChanged;
+        Localizer.LanguageChanged += OnStateChanged;
+        ThemeService.ThemeChanged += OnStateChanged;
+    }
+
+    private void OnStateChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    private void CycleTheme()
+    {
+        ThemeService.SetMode(ThemeService.Mode switch
+        {
+            ThemeMode.System => ThemeMode.Light,
+            ThemeMode.Light => ThemeMode.Dark,
+            _ => ThemeMode.System
+        });
+    }
+
+    private async Task SignOutAsync()
+    {
+        await ApiClient.LogoutAsync();
+        Session.SignOut();
+        Navigation.NavigateTo("/login", replace: true);
+    }
+
+    public void Dispose()
+    {
+        Session.Changed -= OnStateChanged;
+        Localizer.LanguageChanged -= OnStateChanged;
+        ThemeService.ThemeChanged -= OnStateChanged;
+    }
+}

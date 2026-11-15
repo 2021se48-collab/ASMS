@@ -93,6 +93,20 @@ body {
     gap: 1rem;
 }
 
+.top-bar-actions,
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.language-switcher .language-button {
+    min-height: 2.5rem;
+    padding-inline: 0.5rem;
+    font-size: 0.875rem;
+}
+
 .theme-button {
     min-height: 3rem;
     padding-block: 0.5rem;
@@ -104,6 +118,88 @@ body {
     font: inherit;
     font-size: 1rem;
     cursor: pointer;
+}
+
+.app-shell-content {
+    display: flex;
+    min-height: calc(100vh - 5rem);
+}
+
+.sidebar {
+    flex: 0 0 15rem;
+    padding-block: 1rem;
+    padding-inline: 1rem;
+    border-inline-end: 1px solid var(--asms-border);
+    background: var(--asms-surface);
+}
+
+.sidebar-list {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-item {
+    display: block;
+    padding-block: 0.75rem;
+    padding-inline: 1rem;
+    border-radius: 0.4rem;
+    color: var(--asms-text);
+    text-decoration: none;
+}
+
+a.sidebar-item:hover,
+a.sidebar-item:focus-visible {
+    background: var(--asms-background);
+}
+
+.app-main {
+    flex: 1;
+    min-inline-size: 0;
+}
+
+.skip-link {
+    position: absolute;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 0.5rem;
+    z-index: 1;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    transform: translateY(-200%);
+    background: var(--asms-surface);
+    color: var(--asms-text);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+.form-field {
+    display: grid;
+    gap: 0.4rem;
+    margin-block-end: 1rem;
+}
+
+.form-field input {
+    min-height: 3rem;
+    padding-block: 0.5rem;
+    padding-inline: 0.75rem;
+    border: 1px solid var(--asms-border);
+    border-radius: 0.4rem;
+    background: var(--asms-surface);
+    color: var(--asms-text);
+    font: inherit;
+}
+
+.validation-message,
+.error-banner {
+    color: #a32121;
+}
+
+.role-list {
+    padding-inline-start: 1.5rem;
 }
 
 .content,
@@ -152,4 +248,51 @@ button:focus-visible {
 
 button:hover {
     border-color: var(--asms-focus);
+}
+
+@media (max-width: 767.98px) {
+    .top-bar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .top-bar-actions {
+        width: 100%;
+    }
+
+    .app-shell-content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        order: 2;
+        position: sticky;
+        inset-block-end: 0;
+        z-index: 1;
+        flex: 0 0 auto;
+        width: 100%;
+        padding-block: 0.25rem;
+        border-block-start: 1px solid var(--asms-border);
+        border-inline-end: 0;
+    }
+
+    .sidebar-list {
+        display: flex;
+        gap: 0.25rem;
+        overflow-x: auto;
+    }
+
+    .sidebar-list li {
+        flex: 0 0 auto;
+    }
+
+    .sidebar-item {
+        padding-block: 0.5rem;
+        padding-inline: 0.75rem;
+        white-space: nowrap;
+    }
+
+    .app-main {
+        order: 1;
+    }
 }

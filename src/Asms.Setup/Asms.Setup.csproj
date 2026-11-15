@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Asms.Infrastructure\Asms.Infrastructure.csproj" />
+    <ProjectReference Include="..\Asms.Application\Asms.Application.csproj" />
+    <ProjectReference Include="..\Asms.Domain\Asms.Domain.csproj" />
+    <ProjectReference Include="..\Asms.Infrastructure.Migrations.Sqlite\Asms.Infrastructure.Migrations.Sqlite.csproj" />
+    <ProjectReference Include="..\Asms.Infrastructure.Migrations.PostgreSql\Asms.Infrastructure.Migrations.PostgreSql.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>asms-setup-tool</UserSecretsId>
+  </PropertyGroup>
+
+</Project>

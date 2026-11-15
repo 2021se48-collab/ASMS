@@ -10,6 +10,7 @@
   <data name="Theme.Light" xml:space="preserve"><value>روشن</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>تیره</value></data>
   <data name="Theme.Toggle" xml:space="preserve"><value>تغییر تم</value></data>
+  <data name="Common.SkipToContent" xml:space="preserve"><value>رفتن به محتوا</value></data>
   <data name="Common.Save" xml:space="preserve"><value>ذخیره</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>لغو</value></data>
   <data name="Common.Delete" xml:space="preserve"><value>حذف</value></data>
@@ -35,8 +36,16 @@
   <data name="Nav.Library" xml:space="preserve"><value>کتابخانه</value></data>
   <data name="Nav.Inventory" xml:space="preserve"><value>موجودی</value></data>
   <data name="Nav.Settings" xml:space="preserve"><value>تنظیمات</value></data>
+  <data name="Nav.Home" xml:space="preserve"><value>خانه</value></data>
+  <data name="Nav.Navigation" xml:space="preserve"><value>راهنمای اصلی</value></data>
   <data name="Auth.Login" xml:space="preserve"><value>ورود</value></data>
   <data name="Auth.Logout" xml:space="preserve"><value>خروج</value></data>
+  <data name="Auth.SignIn" xml:space="preserve"><value>ورود</value></data>
+  <data name="Auth.SigningIn" xml:space="preserve"><value>در حال ورود...</value></data>
+  <data name="Auth.SignOut" xml:space="preserve"><value>خروج</value></data>
+  <data name="Auth.SignedIn" xml:space="preserve"><value>وارد شده</value></data>
+  <data name="Auth.OfflineNotice" xml:space="preserve"><value>برای ورود به اینترنت نیاز است.</value></data>
+  <data name="Auth.Roles" xml:space="preserve"><value>نقش‌های شما</value></data>
   <data name="Auth.UserName" xml:space="preserve"><value>نام کاربری</value></data>
   <data name="Auth.Password" xml:space="preserve"><value>رمز عبور</value></data>
   <data name="Auth.ChooseLanguage" xml:space="preserve"><value>زبان را انتخاب کنید</value></data>
@@ -49,7 +58,22 @@
   <data name="Error.UNAUTHENTICATED" xml:space="preserve"><value>برای ادامه وارد شوید.</value></data>
   <data name="Error.FORBIDDEN" xml:space="preserve"><value>شما اجازه انجام این کار را ندارید.</value></data>
   <data name="Error.APPEND_ONLY_TABLE" xml:space="preserve"><value>این سابقه قابل تغییر نیست.</value></data>
+  <data name="Error.NETWORK_ERROR" xml:space="preserve"><value>مشکل شبکه. اتصال را بررسی و دوباره تلاش کنید.</value></data>
+  <data name="Error.RATE_LIMITED" xml:space="preserve"><value>تلاش‌های زیاد انجام شد. کمی صبر کنید و دوباره تلاش کنید.</value></data>
   <data name="Error.Unexpected" xml:space="preserve"><value>مشکلی پیش آمد. دوباره تلاش کنید.</value></data>
   <data name="Validation.Required" xml:space="preserve"><value>{0} الزامی است.</value></data>
   <data name="Validation.MaxLength" xml:space="preserve"><value>{0} باید حداکثر {1} نویسه باشد.</value></data>
+  <data name="Home.Greeting" xml:space="preserve"><value>خوش آمدید</value></data>
+  <data name="Home.ComingSoon" xml:space="preserve"><value>این بخش به‌زودی آماده می‌شود.</value></data>
+  <data name="Role.PlatformSuperAdministrator" xml:space="preserve"><value>مدیر کل پلتفرم</value></data>
+  <data name="Role.SchoolOwner" xml:space="preserve"><value>مالک مکتب</value></data>
+  <data name="Role.SchoolPrincipal" xml:space="preserve"><value>مدیر مکتب</value></data>
+  <data name="Role.AcademicManager" xml:space="preserve"><value>مدیر آموزشی</value></data>
+  <data name="Role.Accountant" xml:space="preserve"><value>حسابدار</value></data>
+  <data name="Role.Teacher" xml:space="preserve"><value>آموزگار</value></data>
+  <data name="Role.Receptionist" xml:space="preserve"><value>کارمند پذیرش</value></data>
+  <data name="Role.Librarian" xml:space="preserve"><value>کتابدار</value></data>
+  <data name="Role.Parent" xml:space="preserve"><value>والد</value></data>
+  <data name="Role.Student" xml:space="preserve"><value>شاگرد</value></data>
+  <data name="Role.EducationSupervisor" xml:space="preserve"><value>ناظر معارف</value></data>
 </root>

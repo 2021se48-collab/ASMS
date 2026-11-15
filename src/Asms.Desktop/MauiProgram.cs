@@ -12,7 +12,9 @@ public static class MauiProgram
 			.UseMauiApp<App>();
 
 		builder.Services.AddMauiBlazorWebView();
-		builder.Services.AddAsmsUi();
+		// development default; configurable per school later
+		builder.Configuration["Api:BaseUrl"] = "http://localhost:5082";
+		builder.Services.AddAsmsUi(builder.Configuration);
 
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();

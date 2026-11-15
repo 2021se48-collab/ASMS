@@ -13,16 +13,25 @@ public sealed class LocalizationTests
     [
         "App.Name",
         "Theme.System", "Theme.Light", "Theme.Dark", "Theme.Toggle",
+        "Common.SkipToContent",
         "Common.Save", "Common.Cancel", "Common.Delete", "Common.Edit", "Common.Search",
         "Common.Add", "Common.Close", "Common.Yes", "Common.No", "Common.Confirm",
         "Common.Loading", "Common.Back", "Common.Next", "Common.Print", "Common.Export",
         "Nav.Dashboard", "Nav.Students", "Nav.Teachers", "Nav.Attendance", "Nav.Exams",
         "Nav.Fees", "Nav.Reports", "Nav.Library", "Nav.Inventory", "Nav.Settings",
+        "Nav.Home", "Nav.Navigation",
         "Auth.Login", "Auth.Logout", "Auth.UserName", "Auth.Password", "Auth.ChooseLanguage",
+        "Auth.SignIn", "Auth.SigningIn", "Auth.SignOut", "Auth.SignedIn",
+        "Auth.OfflineNotice", "Auth.Roles",
         "Lang.English", "Lang.Pashto", "Lang.Dari",
         "Error.INVALID_CREDENTIALS", "Error.INVALID_REQUEST", "Error.INVALID_REFRESH_TOKEN",
-        "Error.UNAUTHENTICATED", "Error.FORBIDDEN", "Error.APPEND_ONLY_TABLE", "Error.Unexpected",
-        "Validation.Required", "Validation.MaxLength"
+        "Error.UNAUTHENTICATED", "Error.FORBIDDEN", "Error.APPEND_ONLY_TABLE",
+        "Error.NETWORK_ERROR", "Error.RATE_LIMITED", "Error.Unexpected",
+        "Validation.Required", "Validation.MaxLength",
+        "Home.Greeting", "Home.ComingSoon",
+        "Role.PlatformSuperAdministrator", "Role.SchoolOwner", "Role.SchoolPrincipal",
+        "Role.AcademicManager", "Role.Accountant", "Role.Teacher", "Role.Receptionist",
+        "Role.Librarian", "Role.Parent", "Role.Student", "Role.EducationSupervisor"
     ];
 
     private static readonly string[] ResourceFiles =

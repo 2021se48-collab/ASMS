@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Resources;
 using System.Text.RegularExpressions;
+using Asms.Contracts.Auth;
 using Asms.Localization;
 using Asms.Localization.Languages;
 using Asms.Localization.Services;
@@ -109,7 +110,7 @@ public sealed class SharedUiTests
     {
         using var context = CreateContext();
         var cut = context.Render<MainLayout>();
-        var button = cut.Find("button[aria-label='Change theme']");
+        var button = cut.Find(".theme-button");
 
         Assert.Equal("System", button.TextContent.Trim());
 
@@ -117,21 +118,21 @@ public sealed class SharedUiTests
         cut.WaitForAssertion(() =>
         {
             Assert.Equal("light", cut.Find(".app-shell").GetAttribute("data-theme"));
-            Assert.Equal("Light", cut.Find("button").TextContent.Trim());
+            Assert.Equal("Light", cut.Find(".theme-button").TextContent.Trim());
         });
 
-        cut.Find("button").Click();
+        cut.Find(".theme-button").Click();
         cut.WaitForAssertion(() =>
         {
             Assert.Equal("dark", cut.Find(".app-shell").GetAttribute("data-theme"));
-            Assert.Equal("Dark", cut.Find("button").TextContent.Trim());
+            Assert.Equal("Dark", cut.Find(".theme-button").TextContent.Trim());
         });
 
-        cut.Find("button").Click();
+        cut.Find(".theme-button").Click();
         cut.WaitForAssertion(() =>
         {
             Assert.Null(cut.Find(".app-shell").GetAttribute("data-theme"));
-            Assert.Equal("System", cut.Find("button").TextContent.Trim());
+            Assert.Equal("System", cut.Find(".theme-button").TextContent.Trim());
         });
     }
 
@@ -151,7 +152,7 @@ public sealed class SharedUiTests
             typeof(SharedResource).Assembly);
 
         var cut = context.Render<MainLayout>();
-        var button = cut.Find("button");
+        var button = cut.Find(".theme-button");
 
         Assert.Equal(resources.GetString("Theme.Toggle", culture), button.GetAttribute("aria-label"));
         Assert.Equal(resources.GetString("Theme.System", culture), button.TextContent.Trim());
@@ -174,23 +175,20 @@ public sealed class SharedUiTests
     [InlineData("en")]
     [InlineData("ps")]
     [InlineData("fa-AF")]
-    public void Home_navigation_text_matches_localized_resource_values(string languageCode)
+    public void Home_shows_the_localized_dashboard_greeting_role_and_placeholder(string languageCode)
     {
         using var context = CreateContext();
         var localizer = context.Services.GetRequiredService<ILocalizer>();
         localizer.SetLanguage(languageCode);
+        var session = context.Services.GetRequiredService<IAuthSession>();
+        session.SignIn(CreateLoginResponse(["Teacher"]), []);
 
         var cut = context.Render<Home>();
         var culture = CultureInfo.GetCultureInfo(languageCode);
         var resources = new ResourceManager(
             "Asms.Localization.Resources.SharedResource",
             typeof(SharedResource).Assembly);
-        var keys = new[]
-        {
-            "Nav.Dashboard", "Nav.Students", "Nav.Teachers", "Nav.Attendance",
-            "Nav.Exams", "Nav.Fees", "Nav.Reports", "Nav.Library",
-            "Nav.Inventory", "Nav.Settings"
-        };
+        var keys = new[] { "Home.Greeting", "Role.Teacher", "Home.ComingSoon" };
 
         foreach (var key in keys)
         {
@@ -198,20 +196,6 @@ public sealed class SharedUiTests
             Assert.False(string.IsNullOrEmpty(expected), $"{key} resource is missing.");
             Assert.Contains(expected, cut.Markup);
         }
-    }
-
-    [Fact]
-    public void Home_back_button_returns_to_language_chooser()
-    {
-        using var context = CreateContext();
-        var cut = context.Render<Home>();
-
-        cut.Find("button[aria-label='Back']").Click();
-
-        Assert.EndsWith(
-            "/",
-            context.Services.GetRequiredService<NavigationManager>().Uri,
-            StringComparison.Ordinal);
     }
 
     [Fact]
@@ -231,7 +215,19 @@ public sealed class SharedUiTests
 
         Assert.DoesNotMatch(physicalProperties, css);
         Assert.DoesNotContain("http", css, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("@import", css, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("cdn", css, StringComparison.OrdinalIgnoreCase);
     }
+
+    private static LoginResponse CreateLoginResponse(IReadOnlyList<string> roles) =>
+        new(
+            Guid.NewGuid().ToString("N"),
+            DateTime.UtcNow.AddMinutes(10),
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            roles,
+            Guid.NewGuid().ToString("N"),
+            DateTime.UtcNow.AddDays(1));
 
     private static BunitContext CreateContext()
     {

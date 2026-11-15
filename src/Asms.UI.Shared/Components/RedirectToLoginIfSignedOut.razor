@@ -1,0 +1,43 @@
+@implements IDisposable
+
+@code {
+    [Inject]
+    private IAuthSession Session { get; set; } = default!;
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        Session.Changed += OnSessionChanged;
+        RedirectIfSignedOut();
+    }
+
+    private void OnSessionChanged()
+    {
+        _ = InvokeAsync(RedirectIfSignedOut);
+    }
+
+    private void RedirectIfSignedOut()
+    {
+        if (Session.IsSignedIn)
+        {
+            return;
+        }
+
+        var path = Navigation.ToBaseRelativePath(Navigation.Uri)
+            .Split('?', '#')[0]
+            .Trim('/');
+        if (path.Length == 0 || path.Equals("login", StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        Navigation.NavigateTo("/login", replace: true);
+    }
+
+    public void Dispose()
+    {
+        Session.Changed -= OnSessionChanged;
+    }
+}

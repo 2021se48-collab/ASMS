@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Asms.Localization\Asms.Localization.csproj" />
+    <ProjectReference Include="..\Asms.Contracts\Asms.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

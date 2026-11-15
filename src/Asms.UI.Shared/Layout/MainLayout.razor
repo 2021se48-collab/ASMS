@@ -8,12 +8,15 @@
      data-theme="@ThemeService.DataTheme">
     <header class="top-bar">
         <span>@Localizer["App.Name"]</span>
-        <button type="button"
-                class="theme-button"
-                aria-label="@ThemeToggleLabel"
-                @onclick="CycleTheme">
-            @CurrentThemeLabel
-        </button>
+        <div class="top-bar-actions">
+            <LanguageSwitcher />
+            <button type="button"
+                    class="theme-button"
+                    aria-label="@ThemeToggleLabel"
+                    @onclick="CycleTheme">
+                @CurrentThemeLabel
+            </button>
+        </div>
     </header>
     <main class="content">
         @Body

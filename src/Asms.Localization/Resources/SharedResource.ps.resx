@@ -10,6 +10,7 @@
   <data name="Theme.Light" xml:space="preserve"><value>روښانه</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>تیاره</value></data>
   <data name="Theme.Toggle" xml:space="preserve"><value>بڼه بدله کړئ</value></data>
+  <data name="Common.SkipToContent" xml:space="preserve"><value>منځپانګې ته لاړ شئ</value></data>
   <data name="Common.Save" xml:space="preserve"><value>خوندي کول</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>لغوه کول</value></data>
   <data name="Common.Delete" xml:space="preserve"><value>ړنګول</value></data>
@@ -35,8 +36,16 @@
   <data name="Nav.Library" xml:space="preserve"><value>کتابتون</value></data>
   <data name="Nav.Inventory" xml:space="preserve"><value>زېرمه</value></data>
   <data name="Nav.Settings" xml:space="preserve"><value>امستنې</value></data>
+  <data name="Nav.Home" xml:space="preserve"><value>کور</value></data>
+  <data name="Nav.Navigation" xml:space="preserve"><value>اصلي غورنۍ</value></data>
   <data name="Auth.Login" xml:space="preserve"><value>ننوتل</value></data>
   <data name="Auth.Logout" xml:space="preserve"><value>وتل</value></data>
+  <data name="Auth.SignIn" xml:space="preserve"><value>ننوتل</value></data>
+  <data name="Auth.SigningIn" xml:space="preserve"><value>ننوتل...</value></data>
+  <data name="Auth.SignOut" xml:space="preserve"><value>وتل</value></data>
+  <data name="Auth.SignedIn" xml:space="preserve"><value>ننوتل شوي</value></data>
+  <data name="Auth.OfflineNotice" xml:space="preserve"><value>د ننوتلو لپاره انټرنېټ ته اړتیا ده.</value></data>
+  <data name="Auth.Roles" xml:space="preserve"><value>ستاسو دندې</value></data>
   <data name="Auth.UserName" xml:space="preserve"><value>د کارن نوم</value></data>
   <data name="Auth.Password" xml:space="preserve"><value>پټنوم</value></data>
   <data name="Auth.ChooseLanguage" xml:space="preserve"><value>ژبه وټاکئ</value></data>
@@ -49,7 +58,22 @@
   <data name="Error.UNAUTHENTICATED" xml:space="preserve"><value>د دوام لپاره ننوځئ.</value></data>
   <data name="Error.FORBIDDEN" xml:space="preserve"><value>تاسو د دې کار اجازه نه لرئ.</value></data>
   <data name="Error.APPEND_ONLY_TABLE" xml:space="preserve"><value>دا ریکارډ نه شي بدلول کېدای.</value></data>
+  <data name="Error.NETWORK_ERROR" xml:space="preserve"><value>د شبکې ستونزه. اړیکه وګورئ او بیا هڅه وکړئ.</value></data>
+  <data name="Error.RATE_LIMITED" xml:space="preserve"><value>ډېرې هڅې وشوې. لږ انتظار وکړئ او بیا هڅه وکړئ.</value></data>
   <data name="Error.Unexpected" xml:space="preserve"><value>ستونزه پېښه شوه. بیا هڅه وکړئ.</value></data>
   <data name="Validation.Required" xml:space="preserve"><value>{0} اړین دی.</value></data>
   <data name="Validation.MaxLength" xml:space="preserve"><value>{0} باید تر {1} تورو زیات نه وي.</value></data>
+  <data name="Home.Greeting" xml:space="preserve"><value>ښه راغلاست</value></data>
+  <data name="Home.ComingSoon" xml:space="preserve"><value>دا برخه به ژر چمتو شي.</value></data>
+  <data name="Role.PlatformSuperAdministrator" xml:space="preserve"><value>د پلیټفارم لوی مدیر</value></data>
+  <data name="Role.SchoolOwner" xml:space="preserve"><value>د ښوونځي مالک</value></data>
+  <data name="Role.SchoolPrincipal" xml:space="preserve"><value>د ښوونځي مدیر</value></data>
+  <data name="Role.AcademicManager" xml:space="preserve"><value>علمي مدیر</value></data>
+  <data name="Role.Accountant" xml:space="preserve"><value>محاسب</value></data>
+  <data name="Role.Teacher" xml:space="preserve"><value>ښوونکی</value></data>
+  <data name="Role.Receptionist" xml:space="preserve"><value>د استقبالیې کارکوونکی</value></data>
+  <data name="Role.Librarian" xml:space="preserve"><value>کتابتونوال</value></data>
+  <data name="Role.Parent" xml:space="preserve"><value>مور او پلار</value></data>
+  <data name="Role.Student" xml:space="preserve"><value>زده کوونکی</value></data>
+  <data name="Role.EducationSupervisor" xml:space="preserve"><value>د پوهنې څارونکی</value></data>
 </root>
