@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
+  <!-- DRAFT - needs review by a native speaker -->
+  <data name="Common.Save" xml:space="preserve"><value>ذخیره</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>لغو</value></data>
+  <data name="Common.Delete" xml:space="preserve"><value>حذف</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>ویرایش</value></data>
+  <data name="Common.Search" xml:space="preserve"><value>جستجو</value></data>
+  <data name="Common.Add" xml:space="preserve"><value>افزودن</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>بستن</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>بله</value></data>
+  <data name="Common.No" xml:space="preserve"><value>نخیر</value></data>
+  <data name="Common.Confirm" xml:space="preserve"><value>تأیید</value></data>
+  <data name="Common.Loading" xml:space="preserve"><value>در حال بارگذاری...</value></data>
+  <data name="Common.Back" xml:space="preserve"><value>بازگشت</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>بعدی</value></data>
+  <data name="Common.Print" xml:space="preserve"><value>چاپ</value></data>
+  <data name="Common.Export" xml:space="preserve"><value>صادر کردن</value></data>
+  <data name="Nav.Dashboard" xml:space="preserve"><value>نمای کلی</value></data>
+  <data name="Nav.Students" xml:space="preserve"><value>شاگردان</value></data>
+  <data name="Nav.Teachers" xml:space="preserve"><value>آموزگاران</value></data>
+  <data name="Nav.Attendance" xml:space="preserve"><value>حاضری</value></data>
+  <data name="Nav.Exams" xml:space="preserve"><value>امتحان‌ها</value></data>
+  <data name="Nav.Fees" xml:space="preserve"><value>فیس‌ها</value></data>
+  <data name="Nav.Reports" xml:space="preserve"><value>گزارش‌ها</value></data>
+  <data name="Nav.Library" xml:space="preserve"><value>کتابخانه</value></data>
+  <data name="Nav.Inventory" xml:space="preserve"><value>موجودی</value></data>
+  <data name="Nav.Settings" xml:space="preserve"><value>تنظیمات</value></data>
+  <data name="Auth.Login" xml:space="preserve"><value>ورود</value></data>
+  <data name="Auth.Logout" xml:space="preserve"><value>خروج</value></data>
+  <data name="Auth.UserName" xml:space="preserve"><value>نام کاربری</value></data>
+  <data name="Auth.Password" xml:space="preserve"><value>رمز عبور</value></data>
+  <data name="Auth.ChooseLanguage" xml:space="preserve"><value>زبان را انتخاب کنید</value></data>
+  <data name="Lang.English" xml:space="preserve"><value>انگلیسی</value></data>
+  <data name="Lang.Pashto" xml:space="preserve"><value>پښتو</value></data>
+  <data name="Lang.Dari" xml:space="preserve"><value>دری</value></data>
+  <data name="Error.INVALID_CREDENTIALS" xml:space="preserve"><value>نام کاربری یا رمز عبور درست نیست.</value></data>
+  <data name="Error.INVALID_REQUEST" xml:space="preserve"><value>درخواست درست نیست. دوباره تلاش کنید.</value></data>
+  <data name="Error.INVALID_REFRESH_TOKEN" xml:space="preserve"><value>جلسه شما پایان یافته است. دوباره وارد شوید.</value></data>
+  <data name="Error.UNAUTHENTICATED" xml:space="preserve"><value>برای ادامه وارد شوید.</value></data>
+  <data name="Error.FORBIDDEN" xml:space="preserve"><value>شما اجازه انجام این کار را ندارید.</value></data>
+  <data name="Error.APPEND_ONLY_TABLE" xml:space="preserve"><value>این سابقه قابل تغییر نیست.</value></data>
+  <data name="Error.Unexpected" xml:space="preserve"><value>مشکلی پیش آمد. دوباره تلاش کنید.</value></data>
+  <data name="Validation.Required" xml:space="preserve"><value>{0} الزامی است.</value></data>
+  <data name="Validation.MaxLength" xml:space="preserve"><value>{0} باید حداکثر {1} نویسه باشد.</value></data>
+</root>

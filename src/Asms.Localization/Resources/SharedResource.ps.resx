@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
+  <!-- DRAFT - needs review by a native speaker -->
+  <data name="Common.Save" xml:space="preserve"><value>خوندي کول</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>لغوه کول</value></data>
+  <data name="Common.Delete" xml:space="preserve"><value>ړنګول</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>سمول</value></data>
+  <data name="Common.Search" xml:space="preserve"><value>لټون</value></data>
+  <data name="Common.Add" xml:space="preserve"><value>زیاتول</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>تړل</value></data>
+  <data name="Common.Yes" xml:space="preserve"><value>هو</value></data>
+  <data name="Common.No" xml:space="preserve"><value>نه</value></data>
+  <data name="Common.Confirm" xml:space="preserve"><value>تاییدول</value></data>
+  <data name="Common.Loading" xml:space="preserve"><value>بارېږي...</value></data>
+  <data name="Common.Back" xml:space="preserve"><value>شاته</value></data>
+  <data name="Common.Next" xml:space="preserve"><value>بل</value></data>
+  <data name="Common.Print" xml:space="preserve"><value>چاپ</value></data>
+  <data name="Common.Export" xml:space="preserve"><value>صادرول</value></data>
+  <data name="Nav.Dashboard" xml:space="preserve"><value>لنډیز</value></data>
+  <data name="Nav.Students" xml:space="preserve"><value>زده کوونکي</value></data>
+  <data name="Nav.Teachers" xml:space="preserve"><value>ښوونکي</value></data>
+  <data name="Nav.Attendance" xml:space="preserve"><value>حاضري</value></data>
+  <data name="Nav.Exams" xml:space="preserve"><value>ازموینې</value></data>
+  <data name="Nav.Fees" xml:space="preserve"><value>فیسونه</value></data>
+  <data name="Nav.Reports" xml:space="preserve"><value>راپورونه</value></data>
+  <data name="Nav.Library" xml:space="preserve"><value>کتابتون</value></data>
+  <data name="Nav.Inventory" xml:space="preserve"><value>زېرمه</value></data>
+  <data name="Nav.Settings" xml:space="preserve"><value>امستنې</value></data>
+  <data name="Auth.Login" xml:space="preserve"><value>ننوتل</value></data>
+  <data name="Auth.Logout" xml:space="preserve"><value>وتل</value></data>
+  <data name="Auth.UserName" xml:space="preserve"><value>د کارن نوم</value></data>
+  <data name="Auth.Password" xml:space="preserve"><value>پټنوم</value></data>
+  <data name="Auth.ChooseLanguage" xml:space="preserve"><value>ژبه وټاکئ</value></data>
+  <data name="Lang.English" xml:space="preserve"><value>انګلیسي</value></data>
+  <data name="Lang.Pashto" xml:space="preserve"><value>پښتو</value></data>
+  <data name="Lang.Dari" xml:space="preserve"><value>دری</value></data>
+  <data name="Error.INVALID_CREDENTIALS" xml:space="preserve"><value>د کارن نوم یا پټنوم سم نه دی.</value></data>
+  <data name="Error.INVALID_REQUEST" xml:space="preserve"><value>غوښتنه سمه نه ده. بیا هڅه وکړئ.</value></data>
+  <data name="Error.INVALID_REFRESH_TOKEN" xml:space="preserve"><value>ستاسو ناسته پای ته رسېدلې ده. بیا ننوځئ.</value></data>
+  <data name="Error.UNAUTHENTICATED" xml:space="preserve"><value>د دوام لپاره ننوځئ.</value></data>
+  <data name="Error.FORBIDDEN" xml:space="preserve"><value>تاسو د دې کار اجازه نه لرئ.</value></data>
+  <data name="Error.APPEND_ONLY_TABLE" xml:space="preserve"><value>دا ریکارډ نه شي بدلول کېدای.</value></data>
+  <data name="Error.Unexpected" xml:space="preserve"><value>ستونزه پېښه شوه. بیا هڅه وکړئ.</value></data>
+  <data name="Validation.Required" xml:space="preserve"><value>{0} اړین دی.</value></data>
+  <data name="Validation.MaxLength" xml:space="preserve"><value>{0} باید تر {1} تورو زیات نه وي.</value></data>
+</root>

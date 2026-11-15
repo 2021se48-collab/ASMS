@@ -7,10 +7,12 @@
     <Project Path="src/Asms.Infrastructure.Migrations.PostgreSql/Asms.Infrastructure.Migrations.PostgreSql.csproj" />
     <Project Path="src/Asms.Infrastructure.Migrations.Sqlite/Asms.Infrastructure.Migrations.Sqlite.csproj" />
     <Project Path="src/Asms.Infrastructure/Asms.Infrastructure.csproj" />
+    <Project Path="src/Asms.Localization/Asms.Localization.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Asms.Api.Tests/Asms.Api.Tests.csproj" />
     <Project Path="tests/Asms.Domain.Tests/Asms.Domain.Tests.csproj" />
     <Project Path="tests/Asms.Infrastructure.Tests/Asms.Infrastructure.Tests.csproj" />
+    <Project Path="tests/Asms.Localization.Tests/Asms.Localization.Tests.csproj" />
   </Folder>
 </Solution>
