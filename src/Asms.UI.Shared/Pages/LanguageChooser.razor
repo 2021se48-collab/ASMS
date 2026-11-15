@@ -1,0 +1,42 @@
+@page "/"
+
+<section class="page-content" aria-labelledby="language-heading">
+    <h1 id="language-heading">@Localizer["Auth.ChooseLanguage"]</h1>
+    <div class="language-options">
+        <button type="button" class="language-button"
+                aria-label="@Localizer["Lang.English"]"
+                @onclick="ChooseEnglish">
+            @Localizer["Lang.English"]
+        </button>
+        <button type="button" class="language-button"
+                aria-label="@Localizer["Lang.Pashto"]"
+                @onclick="ChoosePashto">
+            @Localizer["Lang.Pashto"]
+        </button>
+        <button type="button" class="language-button"
+                aria-label="@Localizer["Lang.Dari"]"
+                @onclick="ChooseDari">
+            @Localizer["Lang.Dari"]
+        </button>
+    </div>
+</section>
+
+@code {
+    [Inject]
+    private ILocalizer Localizer { get; set; } = default!;
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+    private void ChooseEnglish() => ChooseLanguage("en");
+
+    private void ChoosePashto() => ChooseLanguage("ps");
+
+    private void ChooseDari() => ChooseLanguage("fa-AF");
+
+    private void ChooseLanguage(string code)
+    {
+        Localizer.SetLanguage(code);
+        Navigation.NavigateTo("/home");
+    }
+}

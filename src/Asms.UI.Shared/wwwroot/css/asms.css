@@ -1,0 +1,96 @@
+:root {
+    color-scheme: light dark;
+    --asms-background: #f7f8fa;
+    --asms-surface: #ffffff;
+    --asms-text: #17212b;
+    --asms-border: #8a96a3;
+    --asms-accent: #145da0;
+    --asms-focus: #d97706;
+    font-family: "Segoe UI", "Noto Naskh Arabic", Tahoma, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --asms-background: #15191e;
+        --asms-surface: #20262d;
+        --asms-text: #f1f4f7;
+        --asms-border: #788491;
+        --asms-accent: #8dc5ff;
+        --asms-focus: #ffcb73;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--asms-background);
+    color: var(--asms-text);
+    font-family: inherit;
+    text-align: start;
+}
+
+.app-shell {
+    min-height: 100vh;
+    background: var(--asms-background);
+    color: var(--asms-text);
+}
+
+.top-bar {
+    padding-block: 1rem;
+    padding-inline: 1.5rem;
+    background: var(--asms-surface);
+    border-block-end: 1px solid var(--asms-border);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.content,
+.page-content {
+    margin-inline: auto;
+    padding-block: 1.5rem;
+    padding-inline: 1.5rem;
+    max-width: 64rem;
+}
+
+.language-options {
+    display: grid;
+    gap: 1rem;
+    max-width: 32rem;
+}
+
+.language-button,
+.action-button {
+    min-height: 3.5rem;
+    padding-block: 0.75rem;
+    padding-inline: 1.25rem;
+    border: 2px solid var(--asms-accent);
+    border-radius: 0.5rem;
+    background: var(--asms-surface);
+    color: var(--asms-text);
+    font: inherit;
+    font-size: 1.125rem;
+    text-align: start;
+    cursor: pointer;
+}
+
+.navigation-list {
+    padding-inline-start: 1.5rem;
+}
+
+.navigation-list li {
+    margin-block: 0.5rem;
+    padding-inline-start: 0.5rem;
+    border-inline-start: 0.2rem solid var(--asms-accent);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--asms-focus);
+    outline-offset: 3px;
+}
+
+button:hover {
+    border-color: var(--asms-focus);
+}

@@ -1,0 +1,31 @@
+@inherits LayoutComponentBase
+@implements IDisposable
+
+<div class="app-shell" dir="@Localizer.Direction" lang="@Localizer.CurrentLanguage.Code">
+    <header class="top-bar">
+        <span>@Localizer["App.Name"]</span>
+    </header>
+    <main class="content">
+        @Body
+    </main>
+</div>
+
+@code {
+    [Inject]
+    private ILocalizer Localizer { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        Localizer.LanguageChanged += OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Localizer.LanguageChanged -= OnLanguageChanged;
+    }
+}
