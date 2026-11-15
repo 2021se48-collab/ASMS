@@ -29,6 +29,8 @@ public class UserPermissionServiceTests
         Assert.Equal(
             DefaultRolePermissions.ForRole(SystemRoles.Accountant).OrderBy(value => value),
             accountantAccess.Permissions.OrderBy(value => value));
+        Assert.Equal(teacher.AppUserId, teacherAccess.AppUserId);
+        Assert.Equal(accountant.AppUserId, accountantAccess.AppUserId);
         Assert.DoesNotContain(accountantAccess.Permissions, value =>
             value.StartsWith("Attendance.", StringComparison.Ordinal) ||
             value.StartsWith("Exams.", StringComparison.Ordinal));
@@ -44,6 +46,7 @@ public class UserPermissionServiceTests
 
         Assert.True(access.IsValid);
         Assert.False(access.Has(Permissions.Students.View));
+        Assert.Equal(parent.AppUserId, access.AppUserId);
     }
 
     [Fact]
@@ -112,7 +115,10 @@ public class UserPermissionServiceTests
         Assert.False((await database.GetAccessAsync(deletedProfile.IdentityUserId)).IsValid);
 
         var noRoles = await database.AddAccountAsync();
-        Assert.False((await database.GetAccessAsync(noRoles.IdentityUserId)).IsValid);
+        var noRolesAccess = await database.GetAccessAsync(noRoles.IdentityUserId);
+        Assert.False(noRolesAccess.IsValid);
+        Assert.Null(noRolesAccess.AppUserId);
+        Assert.Null(UserAccess.Denied.AppUserId);
     }
 
     [Fact]

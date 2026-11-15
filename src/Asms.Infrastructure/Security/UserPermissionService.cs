@@ -121,7 +121,7 @@ public sealed class UserPermissionService : IUserPermissionService
                 .OrderBy(role => role, StringComparer.Ordinal)
                 .ToArray();
 
-            return new UserAccess(true, Array.AsReadOnly(roleNames), permissions);
+            return new UserAccess(true, Array.AsReadOnly(roleNames), permissions, appUserId);
         }
         catch (DbException)
         {

@@ -40,6 +40,7 @@ builder.Services.AddScoped<ICurrentTenant, HttpContextCurrentTenant>();
 builder.Services.AddDbContext<AsmsDbContext>(configureDb);
 builder.Services.AddAsmsIdentity(configureDb);
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();
+builder.Services.AddScoped<IRecordAccessService, RecordAccessService>();
 builder.Services.AddAsmsAuthentication(builder.Configuration);
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
