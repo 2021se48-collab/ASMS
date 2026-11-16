@@ -1,0 +1,37 @@
+@inject ILocalizer Localizer
+
+<div class="asms-skeleton asms-skeleton--@Kind.ToString().ToLowerInvariant()"
+     role="status"
+     aria-label="@Localizer["Common.Loading"]"
+     aria-busy="true">
+    @switch (Kind)
+    {
+        case SkeletonKind.Text:
+            @for (var index = 0; index < RowCount; index++)
+            {
+                <span class="asms-skeleton-line"></span>
+            }
+            break;
+        case SkeletonKind.Card:
+            <span class="asms-skeleton-line"></span>
+            <span class="asms-skeleton-line"></span>
+            <span class="asms-skeleton-line"></span>
+            break;
+        case SkeletonKind.Table:
+            @for (var index = 0; index < RowCount; index++)
+            {
+                <span class="asms-skeleton-row"></span>
+            }
+            break;
+    }
+</div>
+
+@code {
+    [Parameter]
+    public SkeletonKind Kind { get; set; } = SkeletonKind.Text;
+
+    [Parameter]
+    public int Rows { get; set; } = 3;
+
+    private int RowCount => Rows > 0 ? Rows : throw new ArgumentOutOfRangeException(nameof(Rows));
+}

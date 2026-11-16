@@ -24,6 +24,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ILocalizer, Localizer>();
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IAuthSession, AuthSession>();
+        services.AddSingleton<IToastService, ToastService>();
         services.AddSingleton(options);
         services.AddSingleton<TimeProvider>(TimeProvider.System);
         services.AddSingleton(new HttpClient

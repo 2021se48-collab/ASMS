@@ -1,0 +1,20 @@
+@inject ILocalizer Localizer
+
+<section class="error-state-component" role="alert">
+    <Icon Name="IconName.Alert" Size="IconSize.Large" />
+    <p>@Localizer[MessageKey]</p>
+    @if (OnRetry.HasDelegate)
+    {
+        <AsmsButton Variant="AsmsButtonVariant.Secondary" OnClick="OnRetry">
+            @Localizer["Common.Retry"]
+        </AsmsButton>
+    }
+</section>
+
+@code {
+    [Parameter]
+    public string MessageKey { get; set; } = "Error.Unexpected";
+
+    [Parameter]
+    public EventCallback OnRetry { get; set; }
+}

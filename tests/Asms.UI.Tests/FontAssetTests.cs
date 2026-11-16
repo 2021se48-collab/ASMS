@@ -49,6 +49,7 @@ public sealed class FontAssetTests
             "wwwroot",
             "fonts");
 
+        Assert.True(File.Exists(Path.Combine(fontsPath, "OFL-Inter.txt")));
         Assert.True(File.Exists(Path.Combine(fontsPath, "OFL-NotoNaskhArabic.txt")));
         Assert.True(File.Exists(Path.Combine(fontsPath, "OFL-NotoSans.txt")));
     }
@@ -103,14 +104,14 @@ public sealed class FontAssetTests
             .ToArray();
         Assert.Contains(
             fontFaces,
-            face => face.Contains("font-family: \"Noto Sans\";", StringComparison.Ordinal) &&
+            face => face.Contains("font-family: \"Inter\";", StringComparison.Ordinal) &&
                 face.Contains("unicode-range: U+0000-024F", StringComparison.Ordinal));
         Assert.Contains(
             fontFaces,
             face => face.Contains("font-family: \"Noto Naskh Arabic\";", StringComparison.Ordinal) &&
                 face.Contains("unicode-range: U+0600-06FF", StringComparison.Ordinal));
         Assert.Contains(
-            "font-family: \"Noto Sans\", \"Noto Naskh Arabic\"",
+            "font-family: \"Inter\", \"Noto Naskh Arabic\"",
             css,
             StringComparison.Ordinal);
         Assert.DoesNotMatch(new Regex(@"(?<!-)\bserif\b", RegexOptions.CultureInvariant), css);

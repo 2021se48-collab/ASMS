@@ -1,0 +1,49 @@
+<button type="@Type"
+        @ref="_buttonElement"
+        class="@CssClass"
+        disabled="@IsDisabled"
+        aria-busy="@(Busy ? "true" : null)"
+        aria-label="@AriaLabel"
+        @onclick="OnClick">
+    @if (Busy)
+    {
+        <span class="asms-button-spinner" aria-hidden="true"></span>
+    }
+    @ChildContent
+</button>
+
+@code {
+    private ElementReference _buttonElement;
+
+    [Parameter]
+    public AsmsButtonVariant Variant { get; set; } = AsmsButtonVariant.Primary;
+
+    [Parameter]
+    public AsmsButtonSize Size { get; set; } = AsmsButtonSize.Medium;
+
+    [Parameter]
+    public bool Busy { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    [Parameter]
+    public string Type { get; set; } = "button";
+
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool IsDisabled => Disabled || Busy;
+
+    public ValueTask FocusAsync() => _buttonElement.FocusAsync();
+
+    private string CssClass =>
+        $"asms-button asms-button--{Variant.ToString().ToLowerInvariant()} " +
+        $"asms-button--{Size.ToString().ToLowerInvariant()}";
+}

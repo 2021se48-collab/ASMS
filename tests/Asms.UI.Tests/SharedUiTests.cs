@@ -248,10 +248,10 @@ public sealed class SharedUiTests
     {
         var razorDirectory = Path.Combine(FindRepositoryRoot(), "src", "Asms.UI.Shared");
         var expression = new Regex(
-            @"@\w+(?:\.\w+)*(?:\[[^\]]+\])?",
+            @"@\w+(?:\.\w+)*(?:\[[^\]]+\])?(?:\([^()]*\))?",
             RegexOptions.CultureInvariant);
         var controlStatement = new Regex(
-            @"(?:@\s*(?:if|else|foreach|for|while)\b|\}\s*else\b)[^<]*",
+            @"(?:@\s*(?:if|else|foreach|for|while|switch)\b|\}\s*else\b|\bcase\s+[^:]+:|\bbreak\s*;)[^<]*",
             RegexOptions.CultureInvariant);
         var literalLetters = new Regex(@"\p{L}", RegexOptions.CultureInvariant);
         var comments = new Regex(
@@ -264,6 +264,12 @@ public sealed class SharedUiTests
                      SearchOption.AllDirectories))
         {
             var source = comments.Replace(File.ReadAllText(file), string.Empty);
+            var codeBlockStart = source.IndexOf("@code", StringComparison.Ordinal);
+            if (codeBlockStart >= 0)
+            {
+                source = source[..codeBlockStart];
+            }
+
             foreach (Match node in Regex.Matches(source, @">(?<text>[^<>]*)<"))
             {
                 var text = controlStatement.Replace(node.Groups["text"].Value, string.Empty);
@@ -295,7 +301,7 @@ public sealed class SharedUiTests
         Assert.DoesNotContain("@import", css, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("cdn", css, StringComparison.OrdinalIgnoreCase);
         Assert.Contains(
-            "font-family: \"Noto Sans\", \"Noto Naskh Arabic\"",
+            "font-family: \"Inter\", \"Noto Naskh Arabic\"",
             css,
             StringComparison.Ordinal);
     }

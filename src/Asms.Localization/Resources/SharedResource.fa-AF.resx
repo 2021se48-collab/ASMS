@@ -26,6 +26,18 @@
   <data name="Common.Next" xml:space="preserve"><value>بعدی</value></data>
   <data name="Common.Print" xml:space="preserve"><value>چاپ</value></data>
   <data name="Common.Export" xml:space="preserve"><value>صادر کردن</value></data>
+  <data name="Common.Retry" xml:space="preserve"><value>دوباره تلاش کنید</value></data>
+  <data name="Common.Dismiss" xml:space="preserve"><value>بستن</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>قبلی</value></data>
+  <data name="Common.PageOf" xml:space="preserve"><value>صفحهٔ {0} از {1}</value></data>
+  <data name="Common.NoResults" xml:space="preserve"><value>نتیجه‌ای یافت نشد.</value></data>
+  <data name="Common.SortAscending" xml:space="preserve"><value>مرتب‌سازی صعودی</value></data>
+  <data name="Common.SortDescending" xml:space="preserve"><value>مرتب‌سازی نزولی</value></data>
+  <data name="Common.Actions" xml:space="preserve"><value>عملیات</value></data>
+  <data name="Common.Breadcrumbs" xml:space="preserve"><value>مسیر راهنما</value></data>
+  <data name="Common.Notifications" xml:space="preserve"><value>اعلان‌ها</value></data>
+  <data name="Common.Pagination" xml:space="preserve"><value>صفحه‌بندی</value></data>
+  <data name="Common.ResultsTable" xml:space="preserve"><value>جدول نتایج</value></data>
   <data name="Nav.Dashboard" xml:space="preserve"><value>نمای کلی</value></data>
   <data name="Nav.Students" xml:space="preserve"><value>شاگردان</value></data>
   <data name="Nav.Teachers" xml:space="preserve"><value>آموزگاران</value></data>

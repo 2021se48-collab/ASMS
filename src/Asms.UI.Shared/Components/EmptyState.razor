@@ -1,0 +1,26 @@
+@inject ILocalizer Localizer
+
+<section class="empty-state-component" role="status">
+    <Icon Name="IconName" Size="IconSize.Large" />
+    <p>@Localizer[MessageKey]</p>
+    @if (!string.IsNullOrWhiteSpace(ActionLabelKey))
+    {
+        <AsmsButton Variant="AsmsButtonVariant.Secondary" OnClick="OnAction">
+            @Localizer[ActionLabelKey]
+        </AsmsButton>
+    }
+</section>
+
+@code {
+    [Parameter, EditorRequired]
+    public string MessageKey { get; set; } = string.Empty;
+
+    [Parameter]
+    public IconName IconName { get; set; } = IconName.Info;
+
+    [Parameter]
+    public string? ActionLabelKey { get; set; }
+
+    [Parameter]
+    public EventCallback OnAction { get; set; }
+}

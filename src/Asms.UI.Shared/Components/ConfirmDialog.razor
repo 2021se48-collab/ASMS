@@ -1,0 +1,135 @@
+@inject ILocalizer Localizer
+
+@if (IsOpen)
+{
+    <div class="confirm-dialog-backdrop">
+        <section class="confirm-dialog"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="confirm-dialog-title"
+                 aria-describedby="confirm-dialog-message"
+                 tabindex="-1"
+                 @onkeydown="HandleKeyDown"
+                 @onkeydown:stopPropagation="true">
+            <h2 id="confirm-dialog-title">@Localizer[TitleKey]</h2>
+            <p id="confirm-dialog-message"><bdi>@Localizer[MessageKey]</bdi></p>
+            <div class="confirm-dialog-actions">
+                <span class="focus-sentinel" tabindex="0" @onfocus="FocusConfirmAsync"></span>
+                <AsmsButton @ref="_cancelButton"
+                            Variant="AsmsButtonVariant.Secondary"
+                            OnClick="CloseAsync">
+                    @Localizer[CancelLabelKey]
+                </AsmsButton>
+                <AsmsButton @ref="_confirmButton"
+                            Variant="AsmsButtonVariant.Danger"
+                            OnClick="ConfirmAsync">
+                    @Localizer[ConfirmLabelKey]
+                </AsmsButton>
+                <span class="focus-sentinel" tabindex="0" @onfocus="FocusCancelAsync"></span>
+            </div>
+        </section>
+    </div>
+}
+
+@code {
+    private AsmsButton? _cancelButton;
+    private AsmsButton? _confirmButton;
+    private bool _focusPending;
+    private bool _wasOpen;
+    private bool _restoreFocusPending;
+
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter, EditorRequired]
+    public string TitleKey { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public string MessageKey { get; set; } = string.Empty;
+
+    [Parameter]
+    public string CancelLabelKey { get; set; } = "Common.Cancel";
+
+    [Parameter]
+    public string ConfirmLabelKey { get; set; } = "Common.Confirm";
+
+    [Parameter]
+    public ElementReference? ReturnFocusTo { get; set; }
+
+    [Parameter]
+    public EventCallback OnConfirm { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (IsOpen && !_wasOpen)
+        {
+            _focusPending = true;
+        }
+
+        _wasOpen = IsOpen;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_focusPending)
+        {
+            _focusPending = false;
+            if (_cancelButton is not null)
+            {
+                await _cancelButton.FocusAsync();
+            }
+        }
+
+        if (_restoreFocusPending && !IsOpen)
+        {
+            _restoreFocusPending = false;
+            if (ReturnFocusTo is { } element)
+            {
+                await element.FocusAsync();
+            }
+        }
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key.Equals("Escape", StringComparison.Ordinal))
+        {
+            await CloseAsync();
+        }
+    }
+
+    private async Task ConfirmAsync()
+    {
+        await OnConfirm.InvokeAsync();
+        await CloseAsync();
+    }
+
+    private async Task CloseAsync()
+    {
+        await OnClose.InvokeAsync();
+        _restoreFocusPending = true;
+        await IsOpenChanged.InvokeAsync(false);
+    }
+
+    private async Task FocusConfirmAsync(FocusEventArgs args)
+    {
+        if (_confirmButton is not null)
+        {
+            await _confirmButton.FocusAsync();
+        }
+    }
+
+    private async Task FocusCancelAsync(FocusEventArgs args)
+    {
+        if (_cancelButton is not null)
+        {
+            await _cancelButton.FocusAsync();
+        }
+    }
+}

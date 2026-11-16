@@ -25,6 +25,18 @@
   <data name="Common.Next" xml:space="preserve"><value>Next</value></data>
   <data name="Common.Print" xml:space="preserve"><value>Print</value></data>
   <data name="Common.Export" xml:space="preserve"><value>Export</value></data>
+  <data name="Common.Retry" xml:space="preserve"><value>Retry</value></data>
+  <data name="Common.Dismiss" xml:space="preserve"><value>Dismiss</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>Previous</value></data>
+  <data name="Common.PageOf" xml:space="preserve"><value>Page {0} of {1}</value></data>
+  <data name="Common.NoResults" xml:space="preserve"><value>No results found.</value></data>
+  <data name="Common.SortAscending" xml:space="preserve"><value>Sort ascending</value></data>
+  <data name="Common.SortDescending" xml:space="preserve"><value>Sort descending</value></data>
+  <data name="Common.Actions" xml:space="preserve"><value>Actions</value></data>
+  <data name="Common.Breadcrumbs" xml:space="preserve"><value>Breadcrumbs</value></data>
+  <data name="Common.Notifications" xml:space="preserve"><value>Notifications</value></data>
+  <data name="Common.Pagination" xml:space="preserve"><value>Pagination</value></data>
+  <data name="Common.ResultsTable" xml:space="preserve"><value>Results table</value></data>
   <data name="Nav.Dashboard" xml:space="preserve"><value>Dashboard</value></data>
   <data name="Nav.Students" xml:space="preserve"><value>Students</value></data>
   <data name="Nav.Teachers" xml:space="preserve"><value>Teachers</value></data>

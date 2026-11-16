@@ -26,6 +26,18 @@
   <data name="Common.Next" xml:space="preserve"><value>بل</value></data>
   <data name="Common.Print" xml:space="preserve"><value>چاپ</value></data>
   <data name="Common.Export" xml:space="preserve"><value>صادرول</value></data>
+  <data name="Common.Retry" xml:space="preserve"><value>بیا هڅه وکړئ</value></data>
+  <data name="Common.Dismiss" xml:space="preserve"><value>لرې کړئ</value></data>
+  <data name="Common.Previous" xml:space="preserve"><value>مخکینی</value></data>
+  <data name="Common.PageOf" xml:space="preserve"><value>پاڼه {0} له {1} څخه</value></data>
+  <data name="Common.NoResults" xml:space="preserve"><value>پایلې ونه موندل شوې.</value></data>
+  <data name="Common.SortAscending" xml:space="preserve"><value>له کم څخه ډېر ته ترتیب</value></data>
+  <data name="Common.SortDescending" xml:space="preserve"><value>له ډېر څخه کم ته ترتیب</value></data>
+  <data name="Common.Actions" xml:space="preserve"><value>کړنې</value></data>
+  <data name="Common.Breadcrumbs" xml:space="preserve"><value>د پاڼې لار</value></data>
+  <data name="Common.Notifications" xml:space="preserve"><value>خبرتیاوې</value></data>
+  <data name="Common.Pagination" xml:space="preserve"><value>پاڼه‌بندي</value></data>
+  <data name="Common.ResultsTable" xml:space="preserve"><value>د پایلو جدول</value></data>
   <data name="Nav.Dashboard" xml:space="preserve"><value>لنډیز</value></data>
   <data name="Nav.Students" xml:space="preserve"><value>زده کوونکي</value></data>
   <data name="Nav.Teachers" xml:space="preserve"><value>ښوونکي</value></data>

@@ -1,0 +1,53 @@
+@inject ILocalizer Localizer
+
+<header class="page-header">
+    @if (Breadcrumbs is { Count: > 0 })
+    {
+        <nav class="page-breadcrumbs" aria-label="@Localizer["Common.Breadcrumbs"]">
+            <ol>
+                @for (var index = 0; index < Breadcrumbs.Count; index++)
+                {
+                    var breadcrumb = Breadcrumbs[index];
+                    <li>
+                        @if (index == Breadcrumbs.Count - 1 || string.IsNullOrWhiteSpace(breadcrumb.Href))
+                        {
+                            <span aria-current="page"><bdi>@Localizer[breadcrumb.LabelKey]</bdi></span>
+                        }
+                        else
+                        {
+                            <a href="@breadcrumb.Href"><bdi>@Localizer[breadcrumb.LabelKey]</bdi></a>
+                            <Icon Name="IconName.Chevron" Size="IconSize.Small" Directional />
+                        }
+                    </li>
+                }
+            </ol>
+        </nav>
+    }
+    <div class="page-header-main">
+        <div>
+            <h1>@Localizer[TitleKey]</h1>
+            @if (!string.IsNullOrWhiteSpace(DescriptionKey))
+            {
+                <p class="page-header-description">@Localizer[DescriptionKey]</p>
+            }
+        </div>
+        @if (PrimaryAction is not null)
+        {
+            <div class="page-header-action">@PrimaryAction</div>
+        }
+    </div>
+</header>
+
+@code {
+    [Parameter, EditorRequired]
+    public string TitleKey { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? DescriptionKey { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<PageBreadcrumb> Breadcrumbs { get; set; } = [];
+
+    [Parameter]
+    public RenderFragment? PrimaryAction { get; set; }
+}

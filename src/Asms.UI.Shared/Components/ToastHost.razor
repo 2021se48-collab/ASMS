@@ -1,0 +1,45 @@
+@implements IDisposable
+@inject ILocalizer Localizer
+@inject IToastService ToastService
+
+<section class="toast-host"
+         role="status"
+         aria-live="polite"
+         aria-relevant="additions removals"
+         aria-label="@Localizer["Common.Notifications"]">
+    @foreach (var notification in ToastService.Notifications)
+    {
+        <article class="toast-message toast-message--@notification.Kind.ToString().ToLowerInvariant()">
+            <Icon Name="IconFor(notification.Kind)" />
+            <span><bdi>@Localizer[notification.MessageKey]</bdi></span>
+            <AsmsButton Variant="AsmsButtonVariant.Quiet"
+                        Size="AsmsButtonSize.Small"
+                        AriaLabel="@Localizer["Common.Dismiss"]"
+                        OnClick="() => ToastService.Dismiss(notification.Id)">
+                <Icon Name="IconName.Close" Size="IconSize.Small" />
+            </AsmsButton>
+        </article>
+    }
+</section>
+
+@code {
+    protected override void OnInitialized()
+    {
+        ToastService.Changed += OnChanged;
+    }
+
+    public void Dispose()
+    {
+        ToastService.Changed -= OnChanged;
+    }
+
+    private void OnChanged() => _ = InvokeAsync(StateHasChanged);
+
+    private static IconName IconFor(ToastKind kind) =>
+        kind switch
+        {
+            ToastKind.Success => IconName.Check,
+            ToastKind.Error => IconName.Alert,
+            _ => IconName.Info
+        };
+}

@@ -1,0 +1,230 @@
+@typeparam TItem
+@inject ILocalizer Localizer
+
+<section class="data-table-component @(Compact ? "data-table-component--compact" : null)"
+         aria-busy="@IsLoading">
+    @if (SearchContent is not null)
+    {
+        <div class="data-table-search-slot">@SearchContent</div>
+    }
+    @if (IsLoading)
+    {
+        <Skeleton Kind="SkeletonKind.Table" Rows="LoadingRows" />
+    }
+    else if (!string.IsNullOrWhiteSpace(ErrorMessageKey))
+    {
+        <ErrorState MessageKey="@ErrorMessageKey" OnRetry="OnRetry" />
+    }
+    else if (Items.Count == 0)
+    {
+        <EmptyState MessageKey="@EmptyMessageKey" />
+    }
+    else
+    {
+        <div class="data-table-scroll" role="region" aria-label="@Localizer[TableLabelKey]" tabindex="0">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        @for (var index = 0; index < Columns.Count; index++)
+                        {
+                            var columnIndex = index;
+                            var column = Columns[columnIndex];
+                            <th scope="col" aria-sort="@SortState(columnIndex)">
+                                @if (column.SortValue is null)
+                                {
+                                    @Localizer[column.HeaderKey]
+                                }
+                                else
+                                {
+                                    <button type="button"
+                                            class="data-table-sort"
+                                            aria-label="@Localizer[SortActionKey(columnIndex)]"
+                                            @onclick="() => SortBy(columnIndex)">
+                                        <span>@Localizer[column.HeaderKey]</span>
+                                        @if (_sortColumnIndex == columnIndex)
+                                        {
+                                            <Icon Name="IconName.Chevron"
+                                                  Size="IconSize.Small"
+                                                  Class="@(_sortAscending ? "data-table-sort-ascending" : "data-table-sort-descending")" />
+                                        }
+                                    </button>
+                                }
+                            </th>
+                        }
+                        @if (RowActions is not null)
+                        {
+                            <th scope="col" aria-label="@Localizer["Common.Actions"]"></th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in VisibleItems)
+                    {
+                        <tr>
+                            @foreach (var column in Columns)
+                            {
+                                <td><bdi>@column.Value(item)</bdi></td>
+                            }
+                            @if (RowActions is not null)
+                            {
+                                <td>@RowActions(item)</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <nav class="data-table-pagination" aria-label="@Localizer["Common.Pagination"]">
+            <AsmsButton Variant="AsmsButtonVariant.Quiet"
+                        Size="AsmsButtonSize.Small"
+                        Disabled="@(_currentPage == 1)"
+                        OnClick="PreviousPage">
+                <Icon Name="IconName.Chevron" Size="IconSize.Small" Directional />
+                @Localizer["Common.Previous"]
+            </AsmsButton>
+            <span aria-live="polite">@Localizer.Get("Common.PageOf", _currentPage, PageCount)</span>
+            <AsmsButton Variant="AsmsButtonVariant.Quiet"
+                        Size="AsmsButtonSize.Small"
+                        Disabled="@(_currentPage == PageCount)"
+                        OnClick="NextPage">
+                @Localizer["Common.Next"]
+                <Icon Name="IconName.Chevron" Size="IconSize.Small" Directional />
+            </AsmsButton>
+        </nav>
+    }
+</section>
+
+@code {
+    private int _currentPage = 1;
+    private int? _sortColumnIndex;
+    private bool _sortAscending = true;
+
+    [Parameter]
+    public IReadOnlyList<TItem> Items { get; set; } = Array.Empty<TItem>();
+
+    [Parameter]
+    public IReadOnlyList<DataTableColumn<TItem>> Columns { get; set; } = Array.Empty<DataTableColumn<TItem>>();
+
+    [Parameter]
+    public int PageSize { get; set; } = 10;
+
+    [Parameter]
+    public int LoadingRows { get; set; } = 4;
+
+    [Parameter]
+    public bool Compact { get; set; }
+
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    [Parameter]
+    public string? ErrorMessageKey { get; set; }
+
+    [Parameter]
+    public string EmptyMessageKey { get; set; } = "Common.NoResults";
+
+    [Parameter]
+    public string TableLabelKey { get; set; } = "Common.ResultsTable";
+
+    [Parameter]
+    public EventCallback OnRetry { get; set; }
+
+    [Parameter]
+    public RenderFragment? SearchContent { get; set; }
+
+    [Parameter]
+    public RenderFragment<TItem>? RowActions { get; set; }
+
+    private int PageCount => Math.Max(1, (int)Math.Ceiling(Items.Count / (double)PageSize));
+
+    private IEnumerable<TItem> SortedItems
+    {
+        get
+        {
+            if (_sortColumnIndex is not { } index || Columns[index].SortValue is not { } selector)
+            {
+                return Items;
+            }
+
+            var comparer = Comparer<IComparable?>.Create(CompareValues);
+            return _sortAscending
+                ? Items.OrderBy(item => selector(item), comparer)
+                : Items.OrderByDescending(item => selector(item), comparer);
+        }
+    }
+
+    private IEnumerable<TItem> VisibleItems =>
+        SortedItems.Skip((_currentPage - 1) * PageSize).Take(PageSize);
+
+    protected override void OnParametersSet()
+    {
+        if (PageSize <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(PageSize));
+        }
+
+        if (LoadingRows <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(LoadingRows));
+        }
+
+        if (Items is null || Columns is null)
+        {
+            throw new ArgumentNullException(Items is null ? nameof(Items) : nameof(Columns));
+        }
+
+        _currentPage = Math.Clamp(_currentPage, 1, PageCount);
+    }
+
+    private void SortBy(int index)
+    {
+        if (_sortColumnIndex == index)
+        {
+            _sortAscending = !_sortAscending;
+        }
+        else
+        {
+            _sortColumnIndex = index;
+            _sortAscending = true;
+        }
+
+        _currentPage = 1;
+    }
+
+    private Task PreviousPage()
+    {
+        _currentPage = Math.Max(1, _currentPage - 1);
+        return Task.CompletedTask;
+    }
+
+    private Task NextPage()
+    {
+        _currentPage = Math.Min(PageCount, _currentPage + 1);
+        return Task.CompletedTask;
+    }
+
+    private string SortState(int index) =>
+        _sortColumnIndex != index
+            ? "none"
+            : _sortAscending ? "ascending" : "descending";
+
+    private string SortActionKey(int index) =>
+        _sortColumnIndex == index && _sortAscending
+            ? "Common.SortDescending"
+            : "Common.SortAscending";
+
+    private static int CompareValues(IComparable? left, IComparable? right)
+    {
+        if (ReferenceEquals(left, right))
+        {
+            return 0;
+        }
+
+        if (left is null)
+        {
+            return -1;
+        }
+
+        return right is null ? 1 : left.CompareTo(right);
+    }
+}
