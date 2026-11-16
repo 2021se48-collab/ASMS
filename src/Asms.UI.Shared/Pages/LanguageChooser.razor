@@ -1,19 +1,22 @@
 @page "/"
 
-<section class="page-content" aria-labelledby="language-heading">
+<section class="page-content language-page" aria-labelledby="language-heading">
     <h1 id="language-heading">@Localizer["Auth.ChooseLanguage"]</h1>
     <div class="language-options">
         <button type="button" class="language-button"
+                lang="en"
                 aria-label="@Localizer["Lang.English"]"
                 @onclick="ChooseEnglish">
             @Localizer["Lang.English"]
         </button>
         <button type="button" class="language-button"
+                lang="ps"
                 aria-label="@Localizer["Lang.Pashto"]"
                 @onclick="ChoosePashto">
             @Localizer["Lang.Pashto"]
         </button>
         <button type="button" class="language-button"
+                lang="fa-AF"
                 aria-label="@Localizer["Lang.Dari"]"
                 @onclick="ChooseDari">
             @Localizer["Lang.Dari"]

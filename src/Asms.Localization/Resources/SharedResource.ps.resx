@@ -42,6 +42,9 @@
   <data name="Auth.Logout" xml:space="preserve"><value>وتل</value></data>
   <data name="Auth.SignIn" xml:space="preserve"><value>ننوتل</value></data>
   <data name="Auth.SigningIn" xml:space="preserve"><value>ننوتل...</value></data>
+  <data name="Auth.LoginSubtitle" xml:space="preserve"><value>د خپل ښوونځي د مدیریت لپاره ننوځئ.</value></data>
+  <data name="Auth.ShowPassword" xml:space="preserve"><value>پټنوم ښکاره کړئ</value></data>
+  <data name="Auth.HidePassword" xml:space="preserve"><value>پټنوم پټ کړئ</value></data>
   <data name="Auth.SignOut" xml:space="preserve"><value>وتل</value></data>
   <data name="Auth.SignedIn" xml:space="preserve"><value>ننوتل شوي</value></data>
   <data name="Auth.OfflineNotice" xml:space="preserve"><value>د ننوتلو لپاره انټرنېټ ته اړتیا ده.</value></data>

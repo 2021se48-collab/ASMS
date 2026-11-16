@@ -42,6 +42,9 @@
   <data name="Auth.Logout" xml:space="preserve"><value>خروج</value></data>
   <data name="Auth.SignIn" xml:space="preserve"><value>ورود</value></data>
   <data name="Auth.SigningIn" xml:space="preserve"><value>در حال ورود...</value></data>
+  <data name="Auth.LoginSubtitle" xml:space="preserve"><value>برای مدیریت مکتب خود وارد شوید.</value></data>
+  <data name="Auth.ShowPassword" xml:space="preserve"><value>نمایش رمز عبور</value></data>
+  <data name="Auth.HidePassword" xml:space="preserve"><value>پنهان کردن رمز عبور</value></data>
   <data name="Auth.SignOut" xml:space="preserve"><value>خروج</value></data>
   <data name="Auth.SignedIn" xml:space="preserve"><value>وارد شده</value></data>
   <data name="Auth.OfflineNotice" xml:space="preserve"><value>برای ورود به اینترنت نیاز است.</value></data>

@@ -196,6 +196,11 @@ public sealed class SharedUiTests
             Assert.False(string.IsNullOrEmpty(expected), $"{key} resource is missing.");
             Assert.Contains(expected, cut.Markup);
         }
+
+        Assert.Equal(4, cut.FindAll(".dashboard-card").Count);
+        Assert.All(
+            cut.FindAll(".dashboard-card .empty-state"),
+            state => Assert.Contains(localizer["Home.ComingSoon"], state.TextContent));
     }
 
     [Fact]

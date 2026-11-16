@@ -32,6 +32,38 @@ public sealed class AuthUiTests
         Assert.Contains(localizer["Auth.SignIn"], cut.Find("button[type='submit']").TextContent);
     }
 
+    [Theory]
+    [InlineData("en")]
+    [InlineData("ps")]
+    [InlineData("fa-AF")]
+    public async Task Login_password_visibility_toggle_updates_input_and_accessible_name(
+        string languageCode)
+    {
+        using var context = CreateContext();
+        var localizer = context.Services.GetRequiredService<ILocalizer>();
+        localizer.SetLanguage(languageCode);
+        var cut = context.Bunit.Render<Login>();
+
+        Assert.Equal("password", cut.Find("#login-password").GetAttribute("type"));
+        Assert.Equal(
+            localizer["Auth.ShowPassword"],
+            cut.Find(".password-toggle").GetAttribute("aria-label"));
+
+        await cut.Find(".password-toggle").ClickAsync(new MouseEventArgs());
+
+        Assert.Equal("text", cut.Find("#login-password").GetAttribute("type"));
+        Assert.Equal(
+            localizer["Auth.HidePassword"],
+            cut.Find(".password-toggle").GetAttribute("aria-label"));
+
+        await cut.Find(".password-toggle").ClickAsync(new MouseEventArgs());
+
+        Assert.Equal("password", cut.Find("#login-password").GetAttribute("type"));
+        Assert.Equal(
+            localizer["Auth.ShowPassword"],
+            cut.Find(".password-toggle").GetAttribute("aria-label"));
+    }
+
     [Fact]
     public async Task Login_empty_fields_show_localized_required_messages()
     {

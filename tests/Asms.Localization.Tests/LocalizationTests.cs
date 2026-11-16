@@ -22,6 +22,7 @@ public sealed class LocalizationTests
         "Nav.Home", "Nav.Navigation",
         "Auth.Login", "Auth.Logout", "Auth.UserName", "Auth.Password", "Auth.ChooseLanguage",
         "Auth.SignIn", "Auth.SigningIn", "Auth.SignOut", "Auth.SignedIn",
+        "Auth.LoginSubtitle", "Auth.ShowPassword", "Auth.HidePassword",
         "Auth.OfflineNotice", "Auth.Roles",
         "Lang.English", "Lang.Pashto", "Lang.Dari",
         "Error.INVALID_CREDENTIALS", "Error.INVALID_REQUEST", "Error.INVALID_REFRESH_TOKEN",

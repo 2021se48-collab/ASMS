@@ -1,6 +1,7 @@
 @inherits LayoutComponentBase
 @implements IDisposable
 @using Asms.UI.Shared.Services
+@using Microsoft.AspNetCore.Components.Routing
 
 <RedirectToLoginIfSignedOut />
 @if (Session.IsSignedIn)
@@ -39,7 +40,9 @@
                             <li>
                                 @if (item.Key == "Nav.Dashboard")
                                 {
-                                    <a class="sidebar-item" href="/home">@Localizer[item.Key]</a>
+                                    <NavLink class="sidebar-item" href="/home" Match="NavLinkMatch.All">
+                                        @Localizer[item.Key]
+                                    </NavLink>
                                 }
                                 else
                                 {

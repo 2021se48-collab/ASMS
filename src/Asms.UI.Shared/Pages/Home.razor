@@ -13,10 +13,26 @@
             }
         </ul>
     }
-    <p>@Localizer["Home.ComingSoon"]</p>
+    <div class="dashboard-grid">
+        @foreach (var key in DashboardCards)
+        {
+            <article class="dashboard-card card-surface" aria-labelledby="@key">
+                <h2 id="@key">@Localizer[key]</h2>
+                <p class="empty-state">@Localizer["Home.ComingSoon"]</p>
+            </article>
+        }
+    </div>
 </section>
 
 @code {
+    private static readonly string[] DashboardCards =
+    [
+        "Nav.Students",
+        "Nav.Teachers",
+        "Nav.Attendance",
+        "Nav.Exams"
+    ];
+
     [Inject]
     private ILocalizer Localizer { get; set; } = default!;
 

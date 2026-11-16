@@ -2,42 +2,58 @@
 @using Microsoft.AspNetCore.Components.Forms
 
 <section class="page-content login-page" aria-labelledby="login-heading">
-    <h1 id="login-heading">@Localizer["Auth.SignIn"]</h1>
-    <p>@Localizer["Auth.OfflineNotice"]</p>
-    <form @onsubmit="SubmitAsync" @onsubmit:preventDefault>
-        <div class="form-field">
-            <label for="login-user-name">@Localizer["Auth.UserName"]</label>
-            <input id="login-user-name"
-                   type="text"
-                   autocomplete="username"
-                   @bind="_userName"
-                   disabled="@_busy" />
-            @if (_userNameError is not null)
+    <div class="login-card card-surface">
+        <header class="login-heading">
+            <p class="login-brand">@Localizer["App.Name"]</p>
+            <h1 id="login-heading">@Localizer["Auth.SignIn"]</h1>
+            <p class="login-subtitle">@Localizer["Auth.LoginSubtitle"]</p>
+        </header>
+        <p class="info-note">@Localizer["Auth.OfflineNotice"]</p>
+        <form class="login-form" @onsubmit="SubmitAsync" @onsubmit:preventDefault>
+            <div class="form-field">
+                <label for="login-user-name">@Localizer["Auth.UserName"]</label>
+                <input id="login-user-name"
+                       type="text"
+                       autocomplete="username"
+                       @bind="_userName"
+                       disabled="@_busy" />
+                @if (_userNameError is not null)
+                {
+                    <span class="validation-message" role="alert">@_userNameError</span>
+                }
+            </div>
+            <div class="form-field">
+                <label for="login-password">@Localizer["Auth.Password"]</label>
+                <div class="password-control">
+                    <input id="login-password"
+                           class="password-input"
+                           type="@PasswordInputType"
+                           autocomplete="current-password"
+                           @bind="_password"
+                           disabled="@_busy" />
+                    <button type="button"
+                            class="button-quiet password-toggle"
+                            aria-label="@Localizer[PasswordVisibilityKey]"
+                            @onclick="TogglePasswordVisibility"
+                            disabled="@_busy">
+                        @Localizer[PasswordVisibilityKey]
+                    </button>
+                </div>
+                @if (_passwordError is not null)
+                {
+                    <span class="validation-message" role="alert">@_passwordError</span>
+                }
+            </div>
+            @if (_errorText is not null)
             {
-                <span class="validation-message" role="alert">@_userNameError</span>
+                <p class="error-banner" role="alert">@_errorText</p>
             }
-        </div>
-        <div class="form-field">
-            <label for="login-password">@Localizer["Auth.Password"]</label>
-            <input id="login-password"
-                   type="password"
-                   autocomplete="current-password"
-                   @bind="_password"
-                   disabled="@_busy" />
-            @if (_passwordError is not null)
-            {
-                <span class="validation-message" role="alert">@_passwordError</span>
-            }
-        </div>
-        @if (_errorText is not null)
-        {
-            <p class="error-banner" role="alert">@_errorText</p>
-        }
-        <button type="submit" class="action-button" disabled="@_busy">
-            @Localizer[_busy ? "Auth.SigningIn" : "Auth.SignIn"]
-        </button>
-    </form>
-    <a class="back-link" href="/">@Localizer["Common.Back"]</a>
+            <button type="submit" class="action-button login-submit" disabled="@_busy">
+                @Localizer[_busy ? "Auth.SigningIn" : "Auth.SignIn"]
+            </button>
+        </form>
+    </div>
+    <a class="button-quiet back-link" href="/">@Localizer["Common.Back"]</a>
 </section>
 
 @code {
@@ -59,6 +75,14 @@
     private string? _passwordError;
     private string? _errorText;
     private bool _busy;
+    private bool _showPassword;
+
+    private string PasswordInputType => _showPassword ? "text" : "password";
+
+    private string PasswordVisibilityKey =>
+        _showPassword ? "Auth.HidePassword" : "Auth.ShowPassword";
+
+    private void TogglePasswordVisibility() => _showPassword = !_showPassword;
 
     private async Task SubmitAsync()
     {
