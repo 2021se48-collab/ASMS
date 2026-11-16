@@ -85,9 +85,9 @@ public sealed class LocalizationTests
         var english = resources["SharedResource.resx"];
         var pashto = resources["SharedResource.ps.resx"];
         var dari = resources["SharedResource.fa-AF.resx"];
-        var languageNames = new HashSet<string>(StringComparer.Ordinal)
+        // Native names for Pashto and Dari are shared across both languages.
+        var sameValueAllowList = new HashSet<string>(StringComparer.Ordinal)
         {
-            "Lang.English",
             "Lang.Pashto",
             "Lang.Dari"
         };
@@ -105,15 +105,13 @@ public sealed class LocalizationTests
         foreach (var key in ExpectedKeys)
         {
             Assert.True(
-                languageNames.Contains(key) || GetPlaceholders(pashto[key]).Count > 0 ||
-                ContainsArabicScript(pashto[key]),
+                GetPlaceholders(pashto[key]).Count > 0 || ContainsArabicScript(pashto[key]),
                 $"Pashto value for {key} has no Arabic-script characters.");
             Assert.True(
-                languageNames.Contains(key) || GetPlaceholders(dari[key]).Count > 0 ||
-                ContainsArabicScript(dari[key]),
+                GetPlaceholders(dari[key]).Count > 0 || ContainsArabicScript(dari[key]),
                 $"Dari value for {key} has no Arabic-script characters.");
 
-            if (!languageNames.Contains(key))
+            if (!sameValueAllowList.Contains(key))
             {
                 Assert.True(
                     !string.Equals(english[key], pashto[key], StringComparison.OrdinalIgnoreCase),

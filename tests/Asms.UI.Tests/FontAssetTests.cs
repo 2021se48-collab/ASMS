@@ -94,6 +94,26 @@ public sealed class FontAssetTests
         Assert.DoesNotMatch(physicalProperties, css);
         Assert.Contains("font-weight: 400 700", css, StringComparison.Ordinal);
         Assert.Contains("font-weight: 100 900", css, StringComparison.Ordinal);
+
+        var fontFaces = Regex.Matches(
+                css,
+                @"@font-face\s*\{(?<body>[^}]*)\}",
+                RegexOptions.Singleline | RegexOptions.CultureInvariant)
+            .Select(match => match.Groups["body"].Value)
+            .ToArray();
+        Assert.Contains(
+            fontFaces,
+            face => face.Contains("font-family: \"Noto Sans\";", StringComparison.Ordinal) &&
+                face.Contains("unicode-range: U+0000-024F", StringComparison.Ordinal));
+        Assert.Contains(
+            fontFaces,
+            face => face.Contains("font-family: \"Noto Naskh Arabic\";", StringComparison.Ordinal) &&
+                face.Contains("unicode-range: U+0600-06FF", StringComparison.Ordinal));
+        Assert.Contains(
+            "font-family: \"Noto Sans\", \"Noto Naskh Arabic\"",
+            css,
+            StringComparison.Ordinal);
+        Assert.DoesNotMatch(new Regex(@"(?<!-)\bserif\b", RegexOptions.CultureInvariant), css);
     }
 
     private static bool HasFontSignature(byte[] bytes) =>

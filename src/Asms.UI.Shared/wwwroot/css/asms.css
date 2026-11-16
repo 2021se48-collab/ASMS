@@ -4,6 +4,7 @@
     font-style: normal;
     font-weight: 100 900;
     font-display: swap;
+    unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
 }
 
 @font-face {
@@ -12,6 +13,7 @@
     font-style: normal;
     font-weight: 400 700;
     font-display: swap;
+    unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
 }
 
 :root {
@@ -61,7 +63,7 @@
     --weight-semibold: 600;
     --weight-bold: 700;
     --focus-ring: 3px solid var(--color-focus);
-    font-family: "Noto Sans", "Segoe UI", Tahoma, sans-serif;
+    font-family: "Noto Sans", "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -139,13 +141,6 @@
     --shadow-1: 0 1px 3px rgb(0 0 0 / 28%);
     --shadow-2: 0 8px 24px rgb(0 0 0 / 32%);
     --shadow-3: 0 18px 48px rgb(0 0 0 / 40%);
-}
-
-:lang(ps),
-:lang(fa),
-:lang(fa-AF),
-[lang="fa-AF"] {
-    font-family: "Noto Naskh Arabic", "Noto Sans", "Segoe UI", Tahoma, sans-serif;
 }
 
 * {
@@ -278,6 +273,32 @@ h3 {
 
 .signed-in-indicator {
     color: var(--color-text-muted);
+    font-size: var(--type-sm);
+}
+
+.role-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+}
+
+.role-badge {
+    display: inline-flex;
+    min-block-size: 1.75rem;
+    align-items: center;
+    padding-block: var(--space-1);
+    padding-inline: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-muted);
+    color: var(--color-text-muted);
+    font-size: var(--type-xs);
+    font-weight: var(--weight-medium);
+}
+
+.top-bar-actions .sign-out-button {
+    min-block-size: 2.75rem;
+    padding-block: var(--space-2);
     font-size: var(--type-sm);
 }
 

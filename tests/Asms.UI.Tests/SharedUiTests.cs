@@ -222,6 +222,59 @@ public sealed class SharedUiTests
             state => Assert.Contains(localizer["Home.ComingSoon"], state.TextContent));
     }
 
+    [Theory]
+    [InlineData("en")]
+    [InlineData("ps")]
+    [InlineData("fa-AF")]
+    public void App_shell_shows_localized_role_badges(string languageCode)
+    {
+        using var context = CreateContext();
+        var localizer = context.Services.GetRequiredService<ILocalizer>();
+        localizer.SetLanguage(languageCode);
+        context.Services.GetRequiredService<IAuthSession>()
+            .SignIn(CreateLoginResponse(["SchoolOwner", "Teacher"]), []);
+
+        var cut = context.Render<AppShell>();
+        var badges = cut.FindAll(".role-badge");
+
+        Assert.Equal(2, badges.Count);
+        Assert.Equal(localizer["Role.SchoolOwner"], badges[0].TextContent.Trim());
+        Assert.Equal(localizer["Role.Teacher"], badges[1].TextContent.Trim());
+        Assert.Equal(localizer["Auth.Roles"], cut.Find(".role-badges").GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void Razor_components_have_no_unlocalized_literal_text_nodes()
+    {
+        var razorDirectory = Path.Combine(FindRepositoryRoot(), "src", "Asms.UI.Shared");
+        var expression = new Regex(
+            @"@\w+(?:\.\w+)*(?:\[[^\]]+\])?",
+            RegexOptions.CultureInvariant);
+        var controlStatement = new Regex(
+            @"(?:@\s*(?:if|else|foreach|for|while)\b|\}\s*else\b)[^<]*",
+            RegexOptions.CultureInvariant);
+        var literalLetters = new Regex(@"\p{L}", RegexOptions.CultureInvariant);
+        var comments = new Regex(
+            @"<!--[\s\S]*?-->|@\*[\s\S]*?\*@",
+            RegexOptions.CultureInvariant);
+
+        foreach (var file in Directory.EnumerateFiles(
+                     razorDirectory,
+                     "*.razor",
+                     SearchOption.AllDirectories))
+        {
+            var source = comments.Replace(File.ReadAllText(file), string.Empty);
+            foreach (Match node in Regex.Matches(source, @">(?<text>[^<>]*)<"))
+            {
+                var text = controlStatement.Replace(node.Groups["text"].Value, string.Empty);
+                text = expression.Replace(text, string.Empty);
+                Assert.False(
+                    literalLetters.IsMatch(text),
+                    $"{Path.GetRelativePath(razorDirectory, file)} contains unlocalized text: {text}");
+            }
+        }
+    }
+
     [Fact]
     public void Shared_css_uses_logical_properties_and_has_no_external_urls()
     {
@@ -241,6 +294,10 @@ public sealed class SharedUiTests
         Assert.DoesNotContain("http", css, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("@import", css, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("cdn", css, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains(
+            "font-family: \"Noto Sans\", \"Noto Naskh Arabic\"",
+            css,
+            StringComparison.Ordinal);
     }
 
     private static LoginResponse CreateLoginResponse(IReadOnlyList<string> roles) =>

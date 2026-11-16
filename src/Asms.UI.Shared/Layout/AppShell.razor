@@ -22,6 +22,15 @@
                     @CurrentThemeLabel
                 </button>
                 <span class="signed-in-indicator">@Localizer["Auth.SignedIn"]</span>
+                @if (Session.Roles.Count > 0)
+                {
+                    <div class="role-badges" role="group" aria-label="@Localizer["Auth.Roles"]">
+                        @foreach (var role in Session.Roles)
+                        {
+                            <span class="role-badge">@Localizer[$"Role.{role}"]</span>
+                        }
+                    </div>
+                }
                 <button type="button"
                         class="action-button sign-out-button"
                         aria-label="@Localizer["Auth.SignOut"]"
