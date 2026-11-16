@@ -455,13 +455,21 @@ input:focus-visible {
 }
 
 .password-control {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: var(--space-2);
+    position: relative;
+}
+
+.password-control .password-input {
+    padding-inline-end: 8.5rem;
 }
 
 .password-toggle {
+    position: absolute;
+    inset-inline-end: var(--space-1);
+    inset-block-start: 50%;
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+    padding-inline: var(--space-2);
+    transform: translateY(-50%);
     white-space: nowrap;
 }
 
@@ -511,11 +519,12 @@ input:focus-visible {
     margin: 0;
 }
 
-.login-brand {
+.login-mark {
+    display: block;
+    inline-size: 3rem;
+    block-size: 3rem;
     margin-block-end: var(--space-2);
     color: var(--color-primary);
-    font-size: var(--type-sm);
-    font-weight: var(--weight-bold);
 }
 
 .login-heading h1 {
@@ -539,7 +548,8 @@ input:focus-visible {
 }
 
 .back-link {
-    align-self: flex-start;
+    inline-size: 100%;
+    justify-content: flex-start;
     margin-block-start: var(--space-4);
 }
 
@@ -698,11 +708,4 @@ input:focus-visible {
         grid-template-columns: 1fr;
     }
 
-    .password-control {
-        grid-template-columns: 1fr;
-    }
-
-    .password-toggle {
-        justify-self: flex-start;
-    }
 }

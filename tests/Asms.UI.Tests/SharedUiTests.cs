@@ -137,6 +137,25 @@ public sealed class SharedUiTests
     }
 
     [Theory]
+    [InlineData(ThemeMode.System)]
+    [InlineData(ThemeMode.Light)]
+    [InlineData(ThemeMode.Dark)]
+    public void Main_layout_theme_button_shows_current_mode_and_toggle_accessible_name(
+        ThemeMode mode)
+    {
+        using var context = CreateContext();
+        var localizer = context.Services.GetRequiredService<ILocalizer>();
+        context.Services.GetRequiredService<IThemeService>().SetMode(mode);
+
+        var cut = context.Render<MainLayout>();
+        var button = cut.Find(".theme-button");
+
+        Assert.Equal(localizer[$"Theme.{mode}"], button.TextContent.Trim());
+        Assert.Equal(localizer["Theme.Toggle"], button.GetAttribute("aria-label"));
+        Assert.Empty(button.QuerySelectorAll("svg"));
+    }
+
+    [Theory]
     [InlineData("en")]
     [InlineData("ps")]
     [InlineData("fa-AF")]

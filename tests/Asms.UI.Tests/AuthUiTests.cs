@@ -253,6 +253,25 @@ public sealed class AuthUiTests
             Assert.Equal("light", cut.Find(".app-shell").GetAttribute("data-theme")));
     }
 
+    [Theory]
+    [InlineData(ThemeMode.System)]
+    [InlineData(ThemeMode.Light)]
+    [InlineData(ThemeMode.Dark)]
+    public void App_shell_theme_button_shows_current_mode_and_toggle_accessible_name(
+        ThemeMode mode)
+    {
+        using var context = CreateSignedInContext(["Teacher"], ["Students.View"]);
+        var localizer = context.Services.GetRequiredService<ILocalizer>();
+        context.Services.GetRequiredService<IThemeService>().SetMode(mode);
+
+        var cut = context.Bunit.Render<AppShell>();
+        var button = cut.Find(".theme-button");
+
+        Assert.Equal(localizer[$"Theme.{mode}"], button.TextContent.Trim());
+        Assert.Equal(localizer["Theme.Toggle"], button.GetAttribute("aria-label"));
+        Assert.Empty(button.QuerySelectorAll("svg"));
+    }
+
     private static Task SubmitAsync(IRenderedComponent<Login> component) =>
         component.Find("form").TriggerEventAsync("onsubmit", new EventArgs());
 
