@@ -4,9 +4,11 @@ using Asms.Api.Tenancy;
 using Asms.Api.Configuration;
 using Asms.Application.Abstractions;
 using Asms.Application.Security;
+using Asms.Application.Students;
 using Asms.Infrastructure.Identity;
 using Asms.Infrastructure.Persistence;
 using Asms.Infrastructure.Security;
+using Asms.Infrastructure.Students;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,6 +43,8 @@ builder.Services.AddDbContext<AsmsDbContext>(configureDb);
 builder.Services.AddAsmsIdentity(configureDb);
 builder.Services.AddScoped<IUserPermissionService, UserPermissionService>();
 builder.Services.AddScoped<IRecordAccessService, RecordAccessService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IStudentNumberGenerator, StudentNumberGenerator>();
 builder.Services.AddAsmsAuthentication(builder.Configuration);
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -113,6 +117,20 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/api/students", StringComparison.OrdinalIgnoreCase))
+    {
+        context.Response.OnStarting(static state =>
+        {
+            var response = (HttpResponse)state;
+            response.Headers.CacheControl = "no-store";
+            return Task.CompletedTask;
+        }, context.Response);
+    }
+
+    await next();
+});
 app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
